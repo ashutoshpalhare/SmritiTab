@@ -1,0 +1,72 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+  "manifest_version": 3,
+  "name": "__MSG_extensionName__",
+  "version": "2.1.12",
+  "default_locale": "en",
+  "description": "__MSG_extensionDescription__",
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    },
+    "default_title": "__MSG_quickSaveTitle__"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none';"
+  },
+  "commands": {
+    "quick-save": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "__MSG_quickSaveCommandDescription__"
+    }
+  },
+  "permissions": [
+    "bookmarks",
+    "storage",
+    "tabs",
+    "activeTab",
+    "notifications",
+    "favicon",
+    "scripting",
+    "identity",
+    "alarms",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "https://xbccmcszhnybxzlirjgk.supabase.co/*",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "author": "Sachin",
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "newtab.html"
+      ],
+      "matches": [
+        "https://lumilist.in/*",
+        "https://www.lumilist.in/*"
+      ]
+    }
+  ]
+}

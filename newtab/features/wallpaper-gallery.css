@@ -1,0 +1,162 @@
+.ll-wallpaper-gallery {
+    width: min(1000px, calc(100vw - 48px)); height: min(760px, calc(100dvh - 48px)); max-height: calc(100dvh - 48px);
+    box-sizing: border-box; padding: 24px; border-radius: 20px;
+    border: 1px solid var(--ll-border-soft, #ffffff30);
+    background: var(--ll-popup-bg-color, #192129);
+    color: var(--ll-text-primary, #f1f5f9); font: inherit; overscroll-behavior: contain;
+}
+.ll-wallpaper-gallery[open] { display: flex; flex-direction: column; }
+.ll-wallpaper-gallery:not(.ll-wallpaper-gallery-detail) {
+    inset: 0; margin: auto;
+    transition: width .3s cubic-bezier(.22, 1, .36, 1), height .3s cubic-bezier(.22, 1, .36, 1),
+        max-width .3s cubic-bezier(.22, 1, .36, 1), max-height .3s cubic-bezier(.22, 1, .36, 1),
+        border-radius .3s cubic-bezier(.22, 1, .36, 1);
+}
+.ll-wallpaper-gallery > :not(.ll-wallpaper-gallery-grid) { flex-shrink: 0; }
+.ll-wallpaper-gallery::backdrop { background: #0008; backdrop-filter: blur(12px); }
+.ll-wallpaper-gallery h2 { flex: 0 1 auto; margin: 0; font-size: 22px; }
+.ll-wallpaper-gallery-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; padding-bottom: 16px; border-bottom: 1px solid var(--ll-border-soft, #ffffff30); }
+.ll-wallpaper-gallery button, .ll-wallpaper-gallery input, .ll-wallpaper-gallery select {
+    border: 1px solid var(--ll-border-soft, #ffffff30); border-radius: 10px; padding: 9px 13px;
+    color: inherit; background: var(--ll-surface-6, #ffffff10); font: inherit;
+}
+.ll-wallpaper-gallery button { cursor: pointer; }
+.ll-wallpaper-gallery button:hover { background: var(--ll-surface-hover, #ffffff20); }
+.ll-wallpaper-gallery button:focus-visible, .ll-wallpaper-gallery input:focus-visible, .ll-wallpaper-gallery select:focus-visible {
+    outline: 2px solid var(--ll-accent-1, #88b8fc); outline-offset: 3px;
+}
+.ll-wallpaper-gallery button[aria-pressed="true"] { border-color: var(--ll-accent-1, #88b8fc); background: var(--ll-accent-soft, #47688d); }
+.ll-wallpaper-gallery button:disabled { opacity: .5; cursor: wait; }
+.ll-wallpaper-gallery-theme-switch { display: flex; flex: 0 0 auto; gap: 4px; padding: 4px; border: 1px solid var(--ll-border-strong, #ffffff30); border-radius: 12px; background: var(--ll-surface-6, #ffffff10); }
+.ll-wallpaper-gallery-theme-switch button { flex: 1; min-width: 60px; padding: 7px 14px; border: 0; border-radius: 8px; background: transparent; color: var(--ll-text-secondary, #cbd5e1); font-size: 13px; font-weight: 600; line-height: 18px; }
+.ll-wallpaper-gallery-theme-switch button[aria-pressed="true"] { background: var(--ll-accent-1, #88b8fc); color: var(--ll-accent-active-text-color, #101827); }
+.ll-wallpaper-gallery-tools { display: flex; align-items: center; flex: 1 1 300px; gap: 8px; min-width: 0; max-width: 100%; }
+.ll-wallpaper-gallery-search { position: relative; flex: 1 1 220px; min-width: 120px; max-width: min(320px, 100%); }
+.ll-wallpaper-gallery-search > svg { position: absolute; inset-inline-start: 11px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--ll-text-secondary, #cbd5e1); pointer-events: none; }
+.ll-wallpaper-gallery-search input { box-sizing: border-box; width: 100%; min-width: 0; height: 36px; padding: 8px 10px; padding-inline-start: 34px; font-size: 13px; }
+.ll-wallpaper-gallery .ll-wallpaper-gallery-icon-button { display: flex; align-items: center; justify-content: center; flex: 0 0 36px; width: 36px; height: 36px; padding: 0; border: 0; color: var(--ll-text-secondary, #cbd5e1); background: var(--ll-surface-6, #ffffff10); line-height: 0; }
+.ll-wallpaper-gallery .ll-wallpaper-gallery-icon-button:hover { color: var(--ll-text-primary, #f1f5f9); background: var(--ll-surface-hover, #ffffff20); }
+.ll-wallpaper-gallery-icon-button svg { display: block; width: 18px; height: 18px; flex: 0 0 18px; }
+.ll-wallpaper-gallery .ll-wallpaper-gallery-close { flex-basis: 32px; width: 32px; height: 32px; margin-inline-start: auto; border-radius: 50%; }
+.ll-wallpaper-gallery-window-actions { display: flex; align-items: center; flex: 0 0 auto; gap: 8px; margin-inline-start: auto; }
+.ll-wallpaper-gallery .ll-wallpaper-gallery-size { flex-basis: 32px; width: 32px; height: 32px; border-radius: 50%; }
+.ll-wallpaper-gallery-status { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.ll-wallpaper-gallery-message { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 32px 16px; text-align: center; color: var(--ll-text-secondary, #cbd5e1); }
+.ll-wallpaper-gallery-message p { margin: 0; }
+.ll-wallpaper-gallery .ll-wallpaper-gallery-tile.is-installing { opacity: 1; outline: 2px solid var(--ll-accent-1, #88b8fc); outline-offset: 2px; }
+.ll-wallpaper-gallery-install-progress { position: absolute; inset: 0; z-index: 5; display: grid; place-items: center; background: #0008; backdrop-filter: blur(2px); pointer-events: none; }
+.ll-wallpaper-gallery-install-progress > svg { width: 56px; height: 56px; stroke-width: 3; transform: rotate(-90deg); }
+.ll-wallpaper-gallery-progress-track { stroke: #ffffff40; }
+.ll-wallpaper-gallery-progress-fill { stroke: #fff; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .12s linear; }
+.ll-wallpaper-gallery-progress-value { position: absolute; color: #fff; font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ll-wallpaper-gallery-tile-error { position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; padding: 16px; background: #000b; color: #fff; font-size: 13px; line-height: 1.4; text-align: center; }
+.ll-wallpaper-gallery-grid { display: grid; flex: 1; min-height: 0; overflow-y: auto; scrollbar-gutter: stable; align-content: start; grid-auto-rows: max-content; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin-bottom: 16px; }
+.ll-wallpaper-gallery-card { position: relative; min-width: 0; }
+.ll-wallpaper-gallery-card .ll-wallpaper-gallery-tile { display: block; width: 100%; }
+.ll-wallpaper-gallery .ll-wallpaper-gallery-info { position: absolute; right: 8px; bottom: 8px; z-index: 6; width: 28px; height: 28px; border-radius: 50%; border: 1px solid #ffffff60; color: #fff; background: #10151dcc; opacity: 0; pointer-events: none; transition: opacity .15s ease; }
+.ll-wallpaper-gallery-card:hover .ll-wallpaper-gallery-info, .ll-wallpaper-gallery-card:focus-within .ll-wallpaper-gallery-info { opacity: 1; pointer-events: auto; }
+.ll-wallpaper-gallery .ll-wallpaper-gallery-info:hover { color: #fff; background: #10151dee; }
+.ll-wallpaper-gallery .ll-wallpaper-gallery-card .ll-wallpaper-gallery-title { padding-right: 46px; }
+.ll-wallpaper-gallery.ll-wallpaper-gallery-detail { --ll-wallpaper-detail-ratio: 1.777777778; --ll-wallpaper-detail-inset: 50px; width: min(1100px, calc(100vw - 48px), calc(min(65dvh, 620px) * var(--ll-wallpaper-detail-ratio) + var(--ll-wallpaper-detail-inset))); height: fit-content; }
+.ll-wallpaper-gallery-detail .ll-wallpaper-gallery-controls { flex-wrap: nowrap; }
+.ll-wallpaper-gallery-detail h2 { min-width: 0; overflow-wrap: anywhere; }
+.ll-wallpaper-gallery-detail-stage { position: relative; aspect-ratio: var(--ll-wallpaper-detail-ratio); overflow: hidden; border-radius: 12px; background: var(--ll-surface-6, #ffffff10); }
+.ll-wallpaper-gallery-detail-stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.ll-wallpaper-gallery-detail-stage.is-loading img { opacity: 0; }
+.ll-wallpaper-gallery-detail-stage.is-loading::before { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 20%, color-mix(in srgb, currentColor 11%, transparent) 48%, transparent 76%); background-size: 200% 100%; animation: ll-wallpaper-skeleton-shimmer 1.25s linear infinite; }
+.ll-wallpaper-gallery-detail-stage .ll-wallpaper-gallery-message { box-sizing: border-box; height: 100%; }
+.ll-wallpaper-gallery .ll-wallpaper-gallery-tile { position: relative; isolation: isolate; padding: 0; overflow: hidden; text-align: start; min-width: 0; }
+.ll-wallpaper-gallery-preview { position: relative; z-index: 1; aspect-ratio: 16 / 9; }
+.ll-wallpaper-gallery-tile img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; background: var(--ll-surface-6, #ffffff10); }
+.ll-wallpaper-gallery-tile .ll-wallpaper-gallery-title { position: absolute; inset: auto 0 0; z-index: 2; display: block; padding: 24px 10px 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #fff; font-size: 13px; font-weight: 700; line-height: 1.35; text-shadow: 0 1px 3px #000b; background: linear-gradient(180deg, transparent, #050a1294 55%, #050a12e6); }
+.ll-wallpaper-gallery .ll-wallpaper-gallery-card .ll-wallpaper-gallery-title { opacity: 0; }
+.ll-wallpaper-gallery-card:hover .ll-wallpaper-gallery-tile:not(.is-loading):not(.has-preview-error) .ll-wallpaper-gallery-title,
+.ll-wallpaper-gallery-card:focus-within .ll-wallpaper-gallery-tile:not(.is-loading):not(.has-preview-error) .ll-wallpaper-gallery-title { opacity: 1; }
+.ll-wallpaper-gallery-downloaded { position: absolute; inset-block-start: 8px; inset-inline-end: 8px; z-index: 3; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; color: #fff; background: #10151dcc; border: 1px solid #ffffff60; box-shadow: 0 1px 4px #0005; }
+.ll-wallpaper-gallery-downloaded svg { width: 15px; height: 15px; stroke-width: 2.5; }
+.ll-wallpaper-gallery-filters { display: flex; align-items: center; gap: 12px; min-width: 0; margin-bottom: 8px; }
+.ll-wallpaper-gallery-category-rail { display: flex; align-items: center; flex: 1 1 0; gap: 6px; min-width: 0; direction: ltr; }
+.ll-wallpaper-gallery-categories { display: flex; order: 1; flex: 1 1 0; gap: 8px; overflow-x: auto; min-width: 0; min-height: calc(1.5em + 20px); padding: 4px 2px 8px; scrollbar-width: none; }
+:root[dir="rtl"] .ll-wallpaper-gallery-categories { direction: rtl; }
+.ll-wallpaper-gallery .ll-wallpaper-gallery-category-left, .ll-wallpaper-gallery .ll-wallpaper-gallery-category-right { flex: 0 0 28px; width: 28px; height: 32px; margin-bottom: 4px; border: 1px solid var(--ll-border-soft, #ffffff30); border-radius: 8px; }
+.ll-wallpaper-gallery-category-left { order: 0; }
+.ll-wallpaper-gallery-category-right { order: 2; }
+.ll-wallpaper-gallery .ll-wallpaper-gallery-category-left[hidden], .ll-wallpaper-gallery .ll-wallpaper-gallery-category-right[hidden] { display: none; }
+.ll-wallpaper-gallery-category-rail.has-overflow .ll-wallpaper-gallery-category-left[hidden], .ll-wallpaper-gallery-category-rail.has-overflow .ll-wallpaper-gallery-category-right[hidden] { display: flex; visibility: hidden; pointer-events: none; }
+.ll-wallpaper-gallery-categories::-webkit-scrollbar { display: none; }
+.ll-wallpaper-gallery-category-skeleton { position: relative; overflow: hidden; flex: 0 0 5em; height: calc(1.5em + 20px); box-sizing: border-box; border: 1px solid var(--ll-border-soft, #ffffff30); border-radius: 10px; background: var(--ll-surface-6, #ffffff10); }
+.ll-wallpaper-gallery-category-skeleton:nth-child(3n + 1) { flex-basis: 3.5em; }
+.ll-wallpaper-gallery-category-skeleton:nth-child(3n + 2) { flex-basis: 6em; }
+.ll-wallpaper-gallery-categories.is-ready button { animation: ll-wallpaper-category-reveal .24s ease both; }
+@keyframes ll-wallpaper-category-reveal { from { opacity: 0; } to { opacity: 1; } }
+.ll-wallpaper-gallery-categories button { flex: 0 0 auto; white-space: nowrap; line-height: 1.5; }
+.ll-wallpaper-gallery-sort { position: relative; display: flex; align-items: center; flex: 0 0 auto; font-size: 13px; color: var(--ll-text-secondary, #cbd5e1); }
+.ll-wallpaper-gallery-sort > svg { position: absolute; inset-inline-end: 12px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; pointer-events: none; }
+.ll-wallpaper-gallery select { appearance: none; -webkit-appearance: none; color-scheme: dark; max-width: 150px; height: 36px; padding: 7px 12px; padding-inline-end: 36px; color: var(--ll-text-primary, #f1f5f9); }
+:root[data-theme="light"] .ll-wallpaper-gallery select { color-scheme: light; }
+.ll-wallpaper-gallery-sentinel { grid-column: 1 / -1; height: 1px; }
+.ll-wallpaper-gallery-tile img, .ll-wallpaper-gallery-tile span { opacity: 1; transition: opacity .24s ease; }
+.ll-wallpaper-gallery-tile::before, .ll-wallpaper-gallery-category-skeleton::before {
+    content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
+    background: linear-gradient(100deg, color-mix(in srgb, currentColor 2.5%, transparent) 20%, color-mix(in srgb, currentColor 11%, transparent) 48%, color-mix(in srgb, currentColor 2.5%, transparent) 76%);
+    background-size: 200% 100%; background-repeat: repeat-x;
+}
+.ll-wallpaper-gallery-tile.is-loading::before, .ll-wallpaper-gallery-category-skeleton::before { opacity: 1; animation: ll-wallpaper-skeleton-shimmer 1.25s linear infinite; }
+.ll-wallpaper-gallery-tile.is-loading img, .ll-wallpaper-gallery-tile.is-loading span,
+.ll-wallpaper-gallery-tile.has-preview-error img { opacity: 0; }
+.ll-wallpaper-gallery-skeleton { border: 1px solid var(--ll-border-soft, #ffffff30); border-radius: 10px; background: var(--ll-surface-6, #ffffff10); pointer-events: none; }
+@keyframes ll-wallpaper-skeleton-shimmer {
+    /* Match the website's seamless full-tile shimmer loop. */
+    from { background-position: 100% 0; }
+    to { background-position: -100% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ll-wallpaper-gallery:not(.ll-wallpaper-gallery-detail) { transition: none; }
+    .ll-wallpaper-gallery-info { transition: none; }
+    .ll-wallpaper-gallery-detail-stage.is-loading::before { animation: none; }
+    .ll-wallpaper-gallery-tile.is-loading::before, .ll-wallpaper-gallery-category-skeleton::before,
+    .ll-wallpaper-gallery-categories.is-ready button,
+    .ll-wallpaper-gallery-tile img, .ll-wallpaper-gallery-tile span, .ll-wallpaper-gallery-progress-fill { transition: none; }
+}
+@media (hover: none) {
+    .ll-wallpaper-gallery .ll-wallpaper-gallery-info { opacity: 1; pointer-events: auto; }
+}
+@media (max-width: 680px) {
+    .ll-wallpaper-gallery h2 { flex: 1 1 0; min-width: 0; overflow-wrap: anywhere; order: 0; }
+    .ll-wallpaper-gallery-window-actions { order: 1; }
+    .ll-wallpaper-gallery-tools { flex-basis: 100%; order: 2; }
+}
+@media (max-width: 540px) {
+    .ll-wallpaper-gallery { width: calc(100vw - 20px); height: min(760px, calc(100dvh - 20px)); max-height: calc(100dvh - 20px); padding: 16px; }
+    .ll-wallpaper-gallery.ll-wallpaper-gallery-detail { --ll-wallpaper-detail-inset: 34px; width: min(calc(100vw - 20px), calc(min(65dvh, 620px) * var(--ll-wallpaper-detail-ratio) + var(--ll-wallpaper-detail-inset))); }
+    .ll-wallpaper-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .ll-wallpaper-gallery h2 { font-size: 19px; }
+    .ll-wallpaper-gallery-filters { flex-wrap: wrap; }
+    .ll-wallpaper-gallery-category-rail { flex-basis: 100%; }
+    .ll-wallpaper-gallery-filters .ll-wallpaper-gallery-theme-switch { flex: 1 1 0; }
+    .ll-wallpaper-gallery-theme-switch { box-sizing: border-box; }
+    .ll-wallpaper-gallery-theme-switch button { min-width: 0; padding-inline: 10px; }
+    .ll-wallpaper-gallery-tools { width: 100%; }
+    .ll-wallpaper-gallery-search { flex: 1 1 120px; width: auto; }
+}
+@media (max-height: 400px) {
+    .ll-wallpaper-gallery-grid { flex: 1 0 120px; }
+}
+.ll-wallpaper-gallery.is-maximized { inset: 0; margin: auto; width: 100vw; max-width: 100vw; height: 100dvh; max-height: 100dvh; border-radius: 0; }
+.ll-wallpaper-gallery.is-maximized .ll-wallpaper-gallery-grid { flex: 1; min-height: 0; }
+
+.ll-wallpaper-gallery-detail-toolbar { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+.ll-wallpaper-gallery-detail-toolbar h2 { flex: 1 1 0; min-width: 0; font-size: 18px; text-align: start; overflow-wrap: anywhere; }
+.ll-wallpaper-gallery-detail-actions { display: flex; align-items: center; justify-content: flex-end; flex: 0 1 auto; gap: 6px; margin-inline-start: auto; max-width: 55%; }
+.ll-wallpaper-gallery-detail-actions button.ll-wallpaper-gallery-close { flex: 0 1 auto; width: auto; height: auto; min-width: 44px; min-height: 44px; padding: 8px 12px; font-size: 13px; white-space: normal; border-radius: 10px; margin-inline-start: 0; order: 0; }
+.ll-wallpaper-gallery-detail-actions button.ll-wallpaper-gallery-set { flex: 0 1 auto; min-width: 0; min-height: 44px; padding: 8px 12px; font-size: 13px; white-space: normal; background: var(--ll-accent-1, #88b8fc); color: var(--ll-accent-active-text-color, #101827); }
+.ll-wallpaper-gallery-detail-stage .ll-wallpaper-gallery-install-progress { z-index: 4; }
+.ll-wallpaper-gallery-detail-stage .ll-wallpaper-gallery-tile-error { position: absolute; inset: 0; display: grid; place-items: center; padding: 16px; background: var(--ll-popup-bg-color, #192129); color: var(--ll-text-primary, #f1f5f9); }
+
+.ll-wallpaper-gallery-detail-frame { position: relative; }
+.ll-wallpaper-gallery-detail-frame > .ll-wallpaper-gallery-icon-button { position: absolute; top: 50%; transform: translateY(-50%); z-index: 6; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--ll-border-soft, #ffffff30); background: var(--ll-popup-bg-color, #192129); color: var(--ll-text-primary, #f1f5f9); box-shadow: 0 2px 8px #0005; }
+.ll-wallpaper-gallery-detail-frame > .ll-wallpaper-gallery-icon-button:hover { background: var(--ll-popup-bg-color, #192129); filter: brightness(1.15); }
+.ll-wallpaper-gallery-detail-previous { left: 10px; }
+.ll-wallpaper-gallery-detail-next { right: 10px; }
+
+.ll-wallpaper-gallery-detail-stage .ll-wallpaper-gallery-message, .ll-wallpaper-gallery-detail-stage .ll-wallpaper-gallery-tile-error { padding-inline: 64px; }

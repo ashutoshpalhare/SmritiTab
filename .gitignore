@@ -1,0 +1,5 @@
+.DS_Store
+Thumbs.db
+generate_history.sh
+history.sh
+node_modules/
