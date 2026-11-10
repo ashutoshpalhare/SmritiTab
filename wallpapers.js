@@ -15,8 +15,8 @@
 export const DEFAULT_WALLPAPER_ID = "local-001";
 
 const LOCAL_TITLES = [
-  "Indigo Drift", "Violet Haze", "Teal Depth", "Plum Dusk", "Aurora Fade",
-  "Ember Glow", "Midnight Tide", "Rose Mist", "Verdant Calm", "Solar Veil",
+  "Ember Drift", "Amber Haze", "Copper Depth", "Cinder Dusk", "Aurora Fade",
+  "Molten Glow", "Midnight Ember", "Rosewood Mist", "Charcoal Bloom", "Solar Veil",
 ];
 
 const localWallpapers = Array.from({ length: 100 }, (_, index) => {
