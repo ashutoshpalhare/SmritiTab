@@ -573,7 +573,7 @@ export function BookmarksPanel() {
       </header>
 
       {notice ? (
-        <p role="status" className="border-b border-slate-900/10 px-4 py-2 text-xs text-orange-600 dark:border-white/10 dark:text-indigo-300">
+        <p role="status" className="border-b border-slate-900/10 px-4 py-2 text-xs text-orange-600 dark:border-white/10 dark:text-orange-300">
           {notice}
         </p>
       ) : null}
