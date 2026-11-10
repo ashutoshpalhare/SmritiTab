@@ -157,7 +157,7 @@ body {
   .dashboard-widget-scroll::-webkit-scrollbar { display: none; }
 }
 @media (max-width: 380px) {
-  .dashboard-widget-grid { min-width: 620px !important; gap: 0.75rem; }
+  .dashboard-widget-grid--multi { min-width: 620px !important; gap: 0.75rem; }
   .dashboard-widget-card { padding-left: 0.75rem; padding-right: 0.75rem; }
 }
 /* ---------- Windows High Contrast ---------- */
