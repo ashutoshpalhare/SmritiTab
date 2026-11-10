@@ -4,24 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b0b0d">
+  <meta name="color-scheme" content="dark light">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <meta name="description" content="SmritiTab turns every new tab into a calm, keyboard-first workspace for bookmarks, notes, tasks, search and focus.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="SmritiTab — Make every new tab count">
   <meta property="og:description" content="A local-first Chrome new tab dashboard. Your essentials, one thoughtful space.">
   <title>SmritiTab — Make every new tab count</title>
-  <style>
-    :root{color-scheme:dark;--bg:#0b0b0d;--panel:#121215;--panel2:#17171b;--line:#29292f;--muted:#a3a3ad;--text:#f6f6f7;--orange:#f97316;--orange2:#fb923c;--radius:22px;--max:1160px}
-    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:radial-gradient(ellipse at 50% -20%,rgba(249,115,22,.16),transparent 42%),var(--bg);color:var(--text);font:16px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit;text-decoration:none}button,a{ -webkit-tap-highlight-color:transparent}a:focus-visible,button:focus-visible{outline:3px solid var(--orange2);outline-offset:4px}.wrap{width:min(var(--max),calc(100% - 44px));margin:auto}.nav{position:sticky;top:0;z-index:20;background:rgba(11,11,13,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.07)}.nav-inner{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.04em;font-size:21px}.brand-mark{width:35px;height:35px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(145deg,#fb923c,#ea580c);color:#1b1009;font-weight:950;box-shadow:0 8px 28px #f9731638}.nav-links{display:flex;align-items:center;gap:27px;color:#c5c5cc;font-size:13px;font-weight:650}.nav-links a:hover{color:#fff}.nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 18px;border-radius:999px;font-size:13px;font-weight:800;transition:transform .2s,border-color .2s,background .2s}.nav-cta,.btn-primary{background:var(--orange);color:#1b1009;box-shadow:0 8px 28px #f9731629}.nav-cta:hover,.btn:hover{transform:translateY(-2px)}.btn-secondary{border:1px solid #393940;background:#151519;color:#f3f3f4}.hero{padding:94px 0 82px;text-align:center;overflow:hidden}.eyebrow{display:inline-flex;align-items:center;gap:9px;border:1px solid #653719;background:#21150f;color:#ffb477;padding:7px 13px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.11em;text-transform:uppercase}.pulse{width:7px;height:7px;background:var(--orange);border-radius:50%;box-shadow:0 0 0 5px #f9731624}.hero h1{max-width:900px;margin:25px auto 18px;font-size:clamp(44px,7.3vw,84px);line-height:.99;letter-spacing:-.075em;font-weight:850}.accent{background:linear-gradient(100deg,#fdba74,#f97316 55%,#ea580c);-webkit-background-clip:text;background-clip:text;color:transparent}.hero-copy{max-width:660px;margin:0 auto;color:#b3b3bd;font-size:clamp(16px,2vw,19px)}.hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:30px 0 12px}.microcopy{color:#777781;font-size:12px}.preview{max-width:950px;margin:58px auto 0;padding:12px;border:1px solid #363238;border-radius:25px;background:linear-gradient(145deg,#242126,#111114);box-shadow:0 35px 100px #000a,0 0 90px #f9731610;transform:perspective(1300px) rotateX(3deg)}.browser-bar{height:27px;display:flex;align-items:center;gap:6px;padding:0 8px 10px}.browser-dot{width:7px;height:7px;border-radius:50%;background:#59545a}.browser-label{margin:auto;color:#77727a;font-size:9px;letter-spacing:.08em}.dashboard{min-height:340px;border-radius:15px;padding:26px 28px;background:radial-gradient(ellipse at 50% 0,#2b1b13 0,transparent 40%),linear-gradient(140deg,#17171a,#101012);border:1px solid #343037;text-align:left}.dash-top{display:grid;grid-template-columns:1fr 1.8fr 1fr;gap:12px}.widget{border:1px solid #ffffff12;background:#ffffff08;border-radius:13px;padding:14px;min-height:84px}.widget small{display:block;color:#a5a0a7;font-size:9px;text-transform:uppercase;letter-spacing:.13em}.widget strong{display:block;margin-top:6px;font-size:17px}.clock{text-align:center;background:#ffffff0b}.clock strong{font-size:32px;letter-spacing:-.06em}.clock em{font-size:10px;color:#fb923c;font-style:normal;letter-spacing:0}.dash-search{margin:18px auto 16px;max-width:570px;border:1px solid #ffffff20;background:#ffffff0b;border-radius:10px;padding:12px 16px;color:#9e9ba2;font-size:11px}.dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.dash-tile{border:1px solid #ffffff12;background:#ffffff07;border-radius:10px;padding:12px 10px;color:#ddd;font-size:10px}.dash-tile b{display:block;color:#fb923c;font-size:16px;margin-bottom:4px}.section{padding:92px 0}.section-head{max-width:650px;margin:0 auto 42px;text-align:center}.kicker{color:#fb923c;text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:850}.section h2{font-size:clamp(32px,4.8vw,52px);line-height:1.08;letter-spacing:-.055em;margin:12px 0}.section-head p,.muted{color:var(--muted)}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.feature{padding:24px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,#17171b,#101013);min-height:190px}.feature-icon{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:#f9731618;border:1px solid #f9731633;color:#fb923c;font-size:18px}.feature h3{font-size:16px;margin:17px 0 6px;letter-spacing:-.02em}.feature p{font-size:13px;color:#a4a4ae;margin:0}.split{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}.split h2{font-size:clamp(32px,4vw,48px)}.points{display:grid;gap:17px;margin-top:26px}.point{display:flex;gap:13px}.check{flex:0 0 25px;height:25px;border-radius:8px;background:#f973161b;color:#fb923c;display:grid;place-items:center;font-size:13px}.point b{display:block;font-size:14px}.point span{display:block;color:#a3a3ad;font-size:12px;margin-top:2px}.privacy-card{padding:28px;border:1px solid #3a2a20;border-radius:22px;background:radial-gradient(circle at 100% 0,#f973161b,transparent 45%),#141316}.privacy-card .big-icon{font-size:36px}.privacy-card h3{font-size:23px;letter-spacing:-.04em;margin:12px 0}.privacy-card p{color:#aaa7af;font-size:13px}.privacy-note{border-top:1px solid #ffffff14;padding-top:15px;margin-top:20px;color:#85818a;font-size:11px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.step{border:1px solid var(--line);border-radius:18px;padding:24px;background:#131316}.step-no{font-size:11px;color:#fb923c;font-weight:900;letter-spacing:.15em}.step h3{font-size:16px;margin:13px 0 6px}.step p{font-size:13px;color:#a3a3ad;margin:0}.faq{max-width:780px;margin:auto;display:grid;gap:10px}.faq details{border:1px solid var(--line);border-radius:14px;background:#131316;padding:17px 20px}.faq summary{cursor:pointer;font-weight:750;font-size:14px}.faq details p{color:#a3a3ad;font-size:13px;margin:12px 0 0}.cta-band{padding:48px;border:1px solid #663a20;border-radius:25px;text-align:center;background:radial-gradient(ellipse at 50% 0,#f973162b,transparent 65%),#151316}.cta-band h2{margin:0 auto 12px;max-width:650px}.cta-band p{color:#b1aab0;font-size:14px;max-width:550px;margin:0 auto 24px}.footer{border-top:1px solid #242429;padding:28px 0 36px;color:#85858f;font-size:12px}.footer-inner{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer a{color:#c5c5cb}.footer a:hover{color:#fb923c}.credit{color:#c5c5cb}.credit strong{color:#fb923c}
-    @media(max-width:760px){.wrap{width:min(var(--max),calc(100% - 30px))}.nav-inner{height:66px}.nav-links{gap:13px}.nav-links a:not(.nav-cta){display:none}.hero{padding:72px 0 55px}.preview{margin-top:42px;padding:8px}.dashboard{padding:16px;min-height:280px}.dash-top{grid-template-columns:1fr 1.4fr 1fr;gap:6px}.widget{padding:9px;min-height:72px}.widget strong{font-size:12px}.clock strong{font-size:22px}.dash-grid{grid-template-columns:repeat(2,1fr)}.section{padding:68px 0}.features{grid-template-columns:repeat(2,1fr)}.split{grid-template-columns:1fr;gap:25px}.steps{grid-template-columns:1fr}.cta-band{padding:34px 20px}}
-    @media(max-width:440px){.brand{font-size:18px}.nav-cta{padding:10px 13px;font-size:11px}.hero h1{font-size:48px}.features{grid-template-columns:1fr}.dash-top{grid-template-columns:1fr 1.25fr 1fr}.widget small{font-size:7px}.widget strong{font-size:10px}.clock strong{font-size:18px}.dashboard{padding:12px}.dash-search{margin:12px auto}.preview{transform:none}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}}
-  </style>
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
   <header class="nav">
     <div class="wrap nav-inner">
       <a class="brand" href="#" aria-label="SmritiTab home"><span class="brand-mark">S</span><span>SmritiTab</span></a>
-      <nav class="nav-links" aria-label="Main navigation">
+      <div class="nav-actions"><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme" title="Toggle theme"><i data-lucide="sun"></i></button><button class="menu-toggle" id="menuToggle" type="button" aria-label="Open navigation" aria-expanded="false"><i data-lucide="menu"></i></button></div>
+      <nav class="nav-links" id="primaryNav" aria-label="Main navigation">
         <a href="#features">Features</a><a href="#privacy">Privacy</a><a href="#install">Install</a><a href="#faq">FAQ</a>
         <a class="nav-cta" href="https://github.com/ashutoshpalhare/SmritiTab" target="_blank" rel="noreferrer">View on GitHub ↗</a>
       </nav>
@@ -44,10 +44,10 @@
           <div class="dashboard">
             <div class="dash-top">
               <div class="widget"><small>Weather · Today</small><strong>☀ 24° &nbsp; Clear</strong></div>
-              <div class="widget clock"><small>Good afternoon</small><strong>10:42 <em>PM</em></strong><small>Wednesday, November 11</small></div>
+              <div class="widget clock"><small id="dashGreeting">Your local time</small><strong class="dash-live" id="dashClock">--:-- <em>--</em></strong><small class="dash-date" id="dashDate">Your local date</small></div>
               <div class="widget"><small>Thought for today</small><strong>Keep moving →</strong></div>
             </div>
-            <div class="dash-search">⌕ &nbsp; Search the web or type a URL...</div>
+            <div class="dash-search"><i data-lucide="search" style="width:13px;height:13px;vertical-align:middle"></i> &nbsp; Search the web or type a URL...</div>
             <div class="dash-grid">
               <div class="dash-tile"><b>▤</b>Bookmarks</div><div class="dash-tile"><b>✎</b>Quick notes</div><div class="dash-tile"><b>✓</b>Tasks</div><div class="dash-tile"><b>⌘</b>Calculator</div>
               <div class="dash-tile"><b>◷</b>History</div><div class="dash-tile"><b>▣</b>Clipboard</div><div class="dash-tile"><b>★</b>Favorites</div><div class="dash-tile"><b>◉</b>Focus mode</div>
@@ -61,12 +61,12 @@
       <div class="wrap">
         <div class="section-head"><span class="kicker">One tab. Many essentials.</span><h2>Less tab-hopping.<br><span class="accent">More getting things done.</span></h2><p>SmritiTab brings the small tools you reach for every day into one clean, customisable workspace.</p></div>
         <div class="features">
-          <article class="feature"><span class="feature-icon">▤</span><h3>Bookmarks & folders</h3><p>Keep useful links organised, revisit favourites and open groups of links when you need them.</p></article>
-          <article class="feature"><span class="feature-icon">⌕</span><h3>Search your way</h3><p>Quick web search, selectable search providers, voice search and keyboard-first navigation.</p></article>
-          <article class="feature"><span class="feature-icon">✎</span><h3>Notes & tasks</h3><p>Capture a thought, jot down a reminder and keep your next actions close at hand.</p></article>
-          <article class="feature"><span class="feature-icon">◷</span><h3>History & clipboard</h3><p>Reach recent browsing activity and useful copied content without losing your flow.</p></article>
-          <article class="feature"><span class="feature-icon">⌗</span><h3>Everyday utilities</h3><p>Use the built-in calculator, weather, favourites and other handy dashboard apps.</p></article>
-          <article class="feature"><span class="feature-icon">◐</span><h3>Your space, your style</h3><p>Choose light, dark or system theme, personalise the dashboard and use focus mode.</p></article>
+          <article class="feature"><span class="feature-icon"><i data-lucide="bookmark"></i></span><h3>Bookmarks & folders</h3><p>Keep useful links organised, revisit favourites and open groups of links when you need them.</p></article>
+          <article class="feature"><span class="feature-icon"><i data-lucide="search"></i></span><h3>Search your way</h3><p>Quick web search, selectable search providers, voice search and keyboard-first navigation.</p></article>
+          <article class="feature"><span class="feature-icon"><i data-lucide="notebook-pen"></i></span><h3>Notes & tasks</h3><p>Capture a thought, jot down a reminder and keep your next actions close at hand.</p></article>
+          <article class="feature"><span class="feature-icon"><i data-lucide="history"></i></span><h3>History & clipboard</h3><p>Reach recent browsing activity and useful copied content without losing your flow.</p></article>
+          <article class="feature"><span class="feature-icon"><i data-lucide="calculator"></i></span><h3>Everyday utilities</h3><p>Use the built-in calculator, weather, favourites and other handy dashboard apps.</p></article>
+          <article class="feature"><span class="feature-icon"><i data-lucide="palette"></i></span><h3>Your space, your style</h3><p>Choose light, dark or system theme, personalise the dashboard and use focus mode.</p></article>
         </div>
       </div>
     </section>
@@ -75,9 +75,9 @@
       <div class="wrap split">
         <div><span class="kicker">Designed to stay yours</span><h2>A useful workspace.<br><span class="accent">Not another data silo.</span></h2><p class="muted">SmritiTab is built as a local-first browser extension. Your dashboard should feel personal without requiring an account or a SmritiTab cloud service.</p>
           <div class="points">
-            <div class="point"><i class="check">✓</i><div><b>Local-first storage</b><span>Extension data is stored in your browser using Chrome's local storage.</span></div></div>
-            <div class="point"><i class="check">✓</i><div><b>No app backend or analytics</b><span>SmritiTab does not include its own account server, telemetry or analytics service.</span></div></div>
-            <div class="point"><i class="check">✓</i><div><b>Clear external services</b><span>Weather uses Open-Meteo. Optional remote wallpapers load only when you choose them.</span></div></div>
+            <div class="point"><i class="check"><i data-lucide="check"></i></i><div><b>Local-first storage</b><span>Extension data is stored in your browser using Chrome's local storage.</span></div></div>
+            <div class="point"><i class="check"><i data-lucide="check"></i></i><div><b>No app backend or analytics</b><span>SmritiTab does not include its own account server, telemetry or analytics service.</span></div></div>
+            <div class="point"><i class="check"><i data-lucide="check"></i></i><div><b>Clear external services</b><span>Weather uses Open-Meteo. Optional remote wallpapers load only when you choose them.</span></div></div>
           </div>
         </div>
         <aside class="privacy-card"><div class="big-icon">⌑</div><h3>Your browser is the home base.</h3><p>SmritiTab does not sync your dashboard through a SmritiTab account. Browser data can still be subject to Chrome profile settings, browser sync and the permissions you grant.</p><div class="privacy-note">Privacy summary based on the current source implementation. Review the repository and manifest for the latest technical details.</div></aside>
@@ -122,6 +122,10 @@
       <div><p class="credit">Created & developed by <strong>Ashutosh Palhare</strong></p><p><a href="https://ashutoshpalhare.github.io/" target="_blank" rel="noreferrer">Portfolio</a> · <a href="https://github.com/ashutoshpalhare" target="_blank" rel="noreferrer">GitHub</a> · <a href="https://github.com/ashutoshpalhare/SmritiTab" target="_blank" rel="noreferrer">Source code</a></p></div>
     </div>
   </footer>
-  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+  <button class="back-top" id="backTop" type="button" aria-label="Back to top"><i data-lucide="arrow-up"></i></button>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+  <script src="assets/js/main.js" defer></script>
 </body>
 </html>
