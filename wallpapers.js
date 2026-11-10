@@ -28,7 +28,7 @@ const localWallpapers = Array.from({ length: 100 }, (_, index) => {
   return {
     id: `local-${number}`,
     title: titles[number] ?? `${LOCAL_TITLES[index % LOCAL_TITLES.length]} ${number}`,
-    src: `wallpapers/wallpaper-${number}.jpg`,
+    src: index < 2 ? `wallpapers/wallpaper-${number}.png` : `wallpapers/wallpaper-${number}.svg`,
     source: "local",
   };
 });
