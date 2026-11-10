@@ -93,7 +93,7 @@ export function TodoApp() {
             value={due}
             onChange={(event) => setDue(event.target.value)}
             aria-label="Due date"
-            className="rounded-xl border border-slate-900/10 bg-white/70 px-2.5 py-1 text-xs text-slate-700 outline-none focus:border-indigo-400 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200"
+            className="rounded-xl border border-slate-900/10 bg-white/70 px-2.5 py-1 text-xs text-slate-700 outline-none focus:border-orange-400 dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-200"
           />
         </div>
       </form>
@@ -108,7 +108,7 @@ export function TodoApp() {
             className={cn(
               "rounded-lg px-2.5 py-1 text-xs font-medium capitalize transition",
               filter === option
-                ? "bg-gradient-to-br from-violet-500 to-indigo-600 text-white"
+                ? "bg-gradient-to-br from-orange-500 to-orange-600 text-white"
                 : "text-slate-500 hover:bg-slate-900/5 dark:text-slate-400 dark:hover:bg-white/10",
             )}
           >
@@ -157,8 +157,8 @@ export function TodoApp() {
                   className={cn(
                     "grid h-5 w-5 shrink-0 place-items-center rounded-md border transition",
                     todo.done
-                      ? "border-transparent bg-gradient-to-br from-violet-500 to-indigo-600 text-white"
-                      : "border-slate-400/60 text-transparent hover:border-indigo-400",
+                      ? "border-transparent bg-gradient-to-br from-orange-500 to-orange-600 text-white"
+                      : "border-slate-400/60 text-transparent hover:border-orange-400",
                   )}
                 >
                   <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
