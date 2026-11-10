@@ -1,3 +1,5 @@
+> **Historical snapshot:** This document records the original minified-bundle runtime audited on `main` before the React/Vite source upload. Its permissions, persistence keys and compatibility findings remain important constraints, but its build instructions do not describe the current React/Vite source candidate. See [current architecture](architecture.md) and [source build guide](source-build.md).
+
 # Runtime baseline and compatibility notes
 
 ## Decision
