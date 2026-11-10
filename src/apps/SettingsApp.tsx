@@ -71,7 +71,7 @@ export function SettingsApp() {
                   className={cn(
                     "rounded-lg px-2.5 py-1 text-xs font-medium transition",
                     settings.theme === theme.id
-                      ? "bg-gradient-to-br from-violet-500 to-indigo-600 text-white"
+                      ? "bg-gradient-to-br from-orange-500 to-orange-600 text-white"
                       : "text-slate-500 hover:bg-slate-900/5 dark:text-slate-400 dark:hover:bg-white/10",
                   )}
                 >
@@ -101,7 +101,7 @@ export function SettingsApp() {
                     className={cn(
                       "rounded-lg px-2.5 py-1 text-xs font-medium transition",
                       settings.wallpaperMode === option.id
-                        ? "bg-gradient-to-br from-violet-500 to-indigo-600 text-white"
+                        ? "bg-gradient-to-br from-orange-500 to-orange-600 text-white"
                         : "text-slate-500 hover:bg-slate-900/5 dark:text-slate-400 dark:hover:bg-white/10",
                     )}
                   >
@@ -134,7 +134,7 @@ export function SettingsApp() {
                     "group relative h-16 overflow-hidden rounded-xl border-2 transition",
                     settings.wallpaperMode === "fixed" &&
                       settings.fixedWallpaperId === wallpaper.id
-                      ? "border-indigo-500"
+                      ? "border-orange-500"
                       : "border-transparent hover:border-slate-400/40",
                   )}
                 >
@@ -261,7 +261,7 @@ export function SettingsApp() {
                   className={cn(
                     "rounded-lg px-2.5 py-1 text-xs font-medium transition",
                     active
-                      ? "bg-gradient-to-br from-violet-500 to-indigo-600 text-white"
+                      ? "bg-gradient-to-br from-orange-500 to-orange-600 text-white"
                       : "bg-slate-900/5 text-slate-600 hover:bg-slate-900/10 dark:bg-white/10 dark:text-slate-300 dark:hover:bg-white/20",
                   )}
                 >
