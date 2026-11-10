@@ -39,6 +39,12 @@ describe("settings normalisation", () => {
     expect(result.sidebarCollapsed).toBe(DEFAULT_SETTINGS.sidebarCollapsed);
   });
 
+  it("keeps saved accents inside the warm orange palette", () => {
+    expect(normalizeSettings({ accent: "#ea580c" }).accent).toBe("#ea580c");
+    expect(normalizeSettings({ accent: "#6366f1" }).accent).toBe("#f97316");
+    expect(normalizeSettings({ accent: "not-a-color" }).accent).toBe("#f97316");
+  });
+
   it("rejects unknown enum values", () => {
     const result = normalizeSettings({ theme: "neon", searchEngine: "askjeeves" });
     expect(result.theme).toBe(DEFAULT_SETTINGS.theme);
