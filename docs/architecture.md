@@ -1,40 +1,54 @@
-# SmritiTab architecture notes
+# Architecture
 
-## Runtime entry points
+## Current React/Vite source candidate
 
-- `manifest.json`: Chrome Manifest V3 configuration and New Tab override.
-- `index.html`: HTML shell loaded by Chrome for each new tab; mounts the dashboard at `#root`.
-- `background/service-worker.js`: event handlers for context-menu and keyboard-command actions.
-- `assets/dashboard.bundle.js`: committed dashboard application runtime.
-- `assets/dashboard.bundle.css`: dashboard stylesheet.
-- `assets/widgets-redesign.css`: widget-row presentation overrides.
-- `assets/accessibility.css`: keyboard-focus and forced-colors refinements, loaded after dashboard styles.
+SmritiTab is a Chrome Manifest V3 New Tab extension built from React 19, TypeScript, Vite 7 and Tailwind CSS 4.
 
-The existing extension and its committed assets are the runtime source of truth. A separate React/Vite source reconstruction is not a prerequisite for maintenance or feature work.
+```text
+src/
+├── apps/          # Bookmarks, notes, todo, history, calculator, clipboard, settings, weather, profile, favorites
+├── components/    # Dashboard widgets, search, bookmark panel, dock, right rail, windows and focus mode
+├── hooks/         # Chrome bookmarks, clock, weather, voice search, viewport and wallpaper hooks
+├── lib/           # Chrome API adapter, storage, data normalizers, search, weather, wallpaper and tests
+├── state/         # App, navigation, weather and window-manager providers
+└── types.ts       # Shared application types
 
-## Data hand-off and persistence
+public/
+├── manifest.json
+├── background.js
+└── icons/
 
-The service worker stores short-lived actions in `chrome.storage.local` under the `smrititab:v1` namespace. The New Tab application consumes these values after it opens.
+assets/             # Curated local wallpaper source images
+scripts/            # Extension packaging and manifest validation
+wallpapers.js       # Local and optional external wallpaper catalogue
+```
 
-The dashboard also uses the same namespace for settings and feature data, with a localStorage fallback in environments where Chrome extension storage is unavailable. Preserve existing keys and data shapes unless a tested migration is explicitly planned.
+## Dashboard composition
 
-## Build boundary
+The dashboard renders the fixed Weather | Clock | Quote header inside the main document flow, immediately above search. The clock is the visual hero; side widgets remain compact glass panels. The header is not a draggable or absolutely positioned full-screen layer.
 
-The root `manifest.json` and `index.html` are the extension entry points. Run `npm run build` to create a clean `dist/` package. The build copies the manifest, HTML, service worker and committed assets without modifying the production bundle.
+The application dock, right rail and app windows remain separate dashboard layers. Individual app windows may be draggable; the top widget row is not.
 
-- `npm run verify` checks the repository package.
-- `npm run build` creates and verifies the package.
-- `npm run verify:dist` checks the generated package.
-- `npm test` runs the Node.js regression suite.
+## State and persistence
 
-This is a packaging workflow, not a React/Vite compilation pipeline.
+- `AppProvider` hydrates and persists settings, profile, categories, apps, favorites, notes, todos, widget preferences, dock and clipboard.
+- `WindowProvider` owns app-window state.
+- `WeatherProvider` owns weather status and readings.
+- `NavigationProvider` routes external URLs and internal apps.
+- `src/lib/storage.ts` prefers `chrome.storage.local` in the extension and falls back to localStorage/memory for web development.
 
-## Compatibility rules
+The storage namespace remains `smrititab:v1`. Pending background-worker values use the same namespaced `pending-search` and `pending-action` keys. Do not rename these keys or clear stored data as a migration shortcut.
 
-- Preserve the Manifest V3 New Tab override and service-worker entry points.
-- Preserve all current dashboard feature behavior and Chrome API integrations.
-- Preserve the `smrititab:v1` namespace and existing user data.
-- Do not remove a permission until runtime usage has been checked.
-- Keep the current production assets loadable until changes pass static checks and live Chrome verification.
+## Chrome integration
 
-See [Phase 2 runtime audit](runtime-audit.md) for the feature inventory, permission map, persistence keys and manual verification matrix. See [build workflow](build.md) for packaging commands and [release readiness](release-readiness.md) for the final QA gate.
+The MV3 service worker creates the selection-search context menu and hands keyboard/context-menu actions to the dashboard through `chrome.storage.local`. Chrome API access is isolated in the storage and Chrome adapter modules.
+
+The manifest retains storage, bookmarks, history, clipboard, context-menu, tabs and tab-groups permissions, with explicit HTTPS hosts for Open-Meteo, Unsplash and Google Fonts.
+
+## Network and privacy
+
+No SmritiTab application backend, analytics or telemetry is included. Weather uses Open-Meteo. The wallpaper catalogue works locally; optional external wallpaper entries are only fetched when selected.
+
+## Historical runtime baseline
+
+The original main-branch minified bundle and its audit are preserved in [runtime audit](runtime-audit.md) and [runtime baseline](runtime-baseline.md). Those documents describe the earlier production runtime and the constraints used when reconstructing this readable source tree; they are not the current build instructions.
