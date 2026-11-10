@@ -168,11 +168,11 @@ export function CalculatorApp() {
             className={cn(
               "rounded-xl py-3",
               key.kind === "operator" &&
-                "bg-slate-900/5 text-indigo-600 hover:bg-indigo-500/15 dark:bg-white/10 dark:text-indigo-300",
+                "bg-slate-900/5 text-orange-600 hover:bg-orange-500/15 dark:bg-white/10 dark:text-orange-300",
               key.kind === "action" &&
                 "bg-rose-500/10 text-rose-500 hover:bg-rose-500/20",
               key.value === "=" &&
-                "bg-gradient-to-br from-violet-500 to-indigo-600 text-white hover:from-violet-500 hover:to-indigo-500",
+                "bg-gradient-to-br from-orange-500 to-orange-600 text-white hover:from-orange-500 hover:to-orange-600",
             )}
           >
             {key.label}
