@@ -317,7 +317,7 @@ type ButtonSize = "sm" | "md";
 
 const BUTTON_VARIANTS: Record<ButtonVariant, string> = {
   primary:
-    "bg-gradient-to-br from-violet-500 to-indigo-600 text-white shadow-lg shadow-indigo-500/25 hover:from-violet-500 hover:to-indigo-500",
+    "bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/25 hover:from-orange-500 hover:to-orange-600",
   secondary:
     "glass-panel text-slate-700 dark:text-slate-100 hover:bg-white/70 dark:hover:bg-slate-800/70",
   ghost:
@@ -384,7 +384,7 @@ export function IconButton({
         "inline-flex items-center justify-center rounded-xl transition disabled:cursor-not-allowed disabled:opacity-50",
         size === "sm" ? "h-8 w-8" : "h-10 w-10",
         active
-          ? "bg-gradient-to-br from-violet-500 to-indigo-600 text-white shadow-md shadow-indigo-500/25"
+          ? "bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-md shadow-orange-500/25"
           : "text-slate-600 hover:bg-slate-900/5 dark:text-slate-300 dark:hover:bg-white/10",
         className,
       )}
@@ -433,7 +433,7 @@ export function Field({ label, hint, error, children }: FieldProps) {
 }
 
 export const inputClass =
-  "w-full rounded-xl border border-slate-900/10 bg-white/70 px-3 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-indigo-400 focus:bg-white focus:outline-none dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder:text-slate-500";
+  "w-full rounded-xl border border-slate-900/10 bg-white/70 px-3 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:border-orange-400 focus:bg-white focus:outline-none dark:border-white/10 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder:text-slate-500";
 
 export function TextInput({
   className,
@@ -493,7 +493,7 @@ export function Toggle({
         className={cn(
           "relative h-6 w-11 shrink-0 rounded-full transition",
           checked
-            ? "bg-gradient-to-r from-violet-500 to-indigo-600"
+            ? "bg-gradient-to-r from-orange-500 to-orange-600"
             : "bg-slate-300 dark:bg-slate-700",
         )}
       >
@@ -711,7 +711,7 @@ export function Badge({
 }) {
   const tones = {
     neutral: "bg-slate-900/5 text-slate-600 dark:bg-white/10 dark:text-slate-300",
-    violet: "bg-violet-500/15 text-violet-600 dark:text-violet-300",
+    violet: "bg-orange-500/15 text-orange-600 dark:text-orange-300",
     green: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-300",
     amber: "bg-amber-500/15 text-amber-600 dark:text-amber-300",
     rose: "bg-rose-500/15 text-rose-600 dark:text-rose-300",
