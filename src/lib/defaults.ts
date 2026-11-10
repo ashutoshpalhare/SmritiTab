@@ -57,7 +57,7 @@ export const DEFAULT_SETTINGS: Settings = {
   wallpaper: "aurora",
   wallpaperMode: "random",
   fixedWallpaperId: "local-001",
-  accent: "violet",
+  accent: "#f97316",
   searchEngine: "google",
   openInNewTab: true,
   temperatureUnit: "c",
@@ -81,8 +81,8 @@ export const DEFAULT_PROFILE: Profile = {
 };
 
 export const DEFAULT_CATEGORIES: Category[] = [
-  { id: "cat_work", name: "Work", accent: "#6366f1" },
-  { id: "cat_daily", name: "Daily", accent: "#10b981" },
+  { id: "cat_work", name: "Work", accent: "#f97316" },
+  { id: "cat_daily", name: "Daily", accent: "#fb923c" },
 ];
 
 export const DEFAULT_APPS: AppEntry[] = [
