@@ -1,16 +1,39 @@
 {
   "name": "smrititab",
-  "version": "1.0.0",
   "private": true,
+  "version": "1.0.0",
   "type": "module",
-  "description": "SmritiTab Chrome extension packaging and verification tools",
+  "description": "SmritiTab — a calm, keyboard-first Chrome new tab dashboard.",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run build:web && npm run build:extension",
+    "build:web": "vite build && node scripts/copy-wallpapers.mjs dist",
+    "build:extension": "vite build --mode extension && node scripts/copy-wallpapers.mjs dist-extension",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "validate:manifest": "node scripts/validate-manifest.mjs dist-extension"
+  },
+  "dependencies": {
+    "clsx": "2.1.1",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "tailwind-merge": "3.4.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.1.17",
+    "@types/node": "22.19.17",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "5.1.1",
+    "tailwindcss": "4.1.17",
+    "typescript": "5.9.3",
+    "vite": "7.3.8",
+    "vite-plugin-singlefile": "2.3.0",
+    "vitest": "5.1.0"
+  },
   "engines": {
     "node": ">=20"
-  },
-  "scripts": {
-    "verify": "node scripts/verify-extension.mjs .",
-    "build": "node scripts/build-extension.mjs",
-    "verify:dist": "node scripts/verify-extension.mjs dist",
-    "test": "node --test"
   }
 }

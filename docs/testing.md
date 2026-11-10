@@ -1,40 +1,35 @@
-# Automated testing and CI
+# Testing and CI
 
-SmritiTab uses Node.js built-in test tooling; no third-party test framework or runtime dependency is required.
-
-## Run locally
+## Local checks
 
 ```sh
 npm ci
-npm test
-npm run verify
-npm run build
-npm run verify:dist
+npm run typecheck
+npm run test
+npm run build:extension
+npm run validate:manifest
 ```
 
-## Automated coverage
+## Test coverage
 
-The current regression suite contains **14 passing tests across three suites**:
+Vitest covers:
 
-- Service-worker context-menu registration on install.
-- Coalescing overlapping install/startup registration.
-- Selection text handoff into extension storage and dashboard tab creation.
-- Ignoring unrelated context-menu events and empty selections.
-- Keyboard command handoff for search and focus mode.
-- Ignoring unknown keyboard commands.
-- Required Chrome permissions for implemented dashboard features.
-- The `smrititab:v1` storage namespace and persisted-key compatibility.
-- Accessibility stylesheet load order.
-- Orange keyboard-focus styling and Windows forced-colors support.
-- Retention of the generated dashboard's reduced-motion support.
-- Single-row, horizontally scrollable Weather → Clock → Quote widget behavior on narrow screens.
-- Acceptance of the checked-in runtime by the static verifier.
-- Rejection of a package with a missing required runtime asset.
+- Settings, categories, app, note, task, widget and dock normalization
+- Storage namespace, migrations, serialized writes and failure recovery
+- Bookmark tree operations and search behavior
+- Calculator and weather helpers
+- Wallpaper catalogue, URL resolution and offline packaging
+- Fixed widget header order and dashboard placement
+- Manifest permissions, MV3 service worker handoff keys and PNG icon dimensions
 
-The tests use a mocked Chrome API for service-worker behavior. They do not replace real-browser tests of Chrome's actual permissions, bookmarks, clipboard, tab groups, geolocation, rendering or persistence behavior.
+The manifest validator also checks the generated package for its New Tab entry, background worker, CSP, permissions, host permissions, local wallpaper count and all declared icon files/dimensions.
 
 ## GitHub Actions
 
-The `Extension CI` workflow runs on pushes to `main`, pull requests and manual dispatch. It uses Node.js 22, installs from the lockfile, runs tests, verifies the checked-in runtime, creates `dist/`, verifies the generated package and uploads the unpacked extension as a seven-day workflow artifact.
+The preserved Extension CI workflow runs typecheck (when available), tests, the extension build and package validation on the source branch and main. It uploads the unpacked package as the `smrititab-extension` artifact.
 
-The latest verified CI run is linked from the [release-readiness checklist](release-readiness.md). A successful CI run proves the automated checks and package pipeline passed. It does not certify the manual Chrome QA matrix; see [runtime audit](runtime-audit.md) and [accessibility QA](accessibility.md).
+Dependency audit output is reviewed as a separate quality gate. Do not use `npm audit fix --force` without reviewing the breaking changes and rerunning the full test/build sequence.
+
+## Real Chrome QA
+
+CI cannot prove Chrome's New Tab override, browser API permissions, persisted user data or the visual layout in a real profile. Load `dist-extension/` through `chrome://extensions` and run the owner-side checklist in [release readiness](release-readiness.md). The earlier main-branch runtime QA does not substitute for testing the rebuilt source package.

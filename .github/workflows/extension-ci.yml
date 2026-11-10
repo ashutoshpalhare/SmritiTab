@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - React-Vite-source-muse
   pull_request:
   workflow_dispatch:
 
@@ -16,9 +17,9 @@ concurrency:
 
 jobs:
   verify:
-    name: Test and package extension
+    name: Typecheck, test and package extension
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
       - name: Check out repository
@@ -33,22 +34,38 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Audit dependency tree
+        run: |
+          npm audit --audit-level=high
+
+      - name: Typecheck source when available
+        run: |
+          if node -e "process.exit(require('./package.json').scripts?.typecheck ? 0 : 1)"; then
+            npm run typecheck
+          else
+            echo "No TypeScript source check in this runtime."
+          fi
+
       - name: Run automated tests
         run: npm test
 
-      - name: Verify repository runtime
-        run: npm run verify
+      - name: Build and validate extension
+        run: |
+          if node -e "process.exit(require('./package.json').scripts?.['build:extension'] ? 0 : 1)"; then
+            npm run build:extension
+            npm run validate:manifest
+          else
+            npm run verify
+            npm run build
+            npm run verify:dist
+          fi
 
-      - name: Build unpacked extension package
-        run: npm run build
-
-      - name: Verify generated package
-        run: npm run verify:dist
-
-      - name: Upload unpacked extension artifact
+      - name: Upload extension and audit artifacts
         uses: actions/upload-artifact@v4
         with:
           name: smrititab-extension
-          path: dist/
+          path: |
+            dist-extension/
+            dist/
           if-no-files-found: error
           retention-days: 7

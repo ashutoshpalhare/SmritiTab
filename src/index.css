@@ -1,0 +1,248 @@
+@import "tailwindcss";
+
+/* Dark mode is driven by a class on <html> so it can be toggled without a media query. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Poppins", "Inter", "SF Pro Text", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+:root {
+  color-scheme: light;
+  --app-bg: #f1f5f9;
+  --accent: #f97316;
+  --panel: 255 255 255;
+  --panel-alpha: 0.72;
+  --panel-border: 15 23 42;
+  --panel-border-alpha: 0.1;
+  --text: 15 23 42;
+  --text-muted: 71 85 105;
+  --shadow: 15 23 42;
+}
+
+.dark {
+  color-scheme: dark;
+  --app-bg: #0b0b0c;
+  --accent: #f97316;
+  --panel: 15 23 42;
+  --panel-alpha: 0.6;
+  --panel-border: 255 255 255;
+  --panel-border-alpha: 0.12;
+  --text: 241 245 249;
+  --text-muted: 148 163 184;
+  --shadow: 2 6 23;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: var(--app-bg);
+  color: rgb(var(--text));
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------- Surfaces ---------- */
+.glass-panel {
+  background-color: rgb(var(--panel) / var(--panel-alpha));
+  border: 1px solid rgb(var(--panel-border) / var(--panel-border-alpha));
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow:
+    0 10px 30px -12px rgb(var(--shadow) / 0.35),
+    0 2px 8px -4px rgb(var(--shadow) / 0.25);
+}
+
+.glass-panel-strong {
+  background-color: rgb(var(--panel) / 0.92);
+  border: 1px solid rgb(var(--panel-border) / var(--panel-border-alpha));
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  box-shadow:
+    0 24px 60px -20px rgb(var(--shadow) / 0.5),
+    0 4px 12px -6px rgb(var(--shadow) / 0.35);
+}
+
+.widget-clock-panel {
+  background-color: rgb(var(--panel) / 0.84);
+  border: 1px solid rgb(var(--panel-border) / 0.16);
+  backdrop-filter: blur(26px) saturate(155%);
+  -webkit-backdrop-filter: blur(26px) saturate(155%);
+  box-shadow:
+    0 20px 52px -22px rgb(var(--shadow) / 0.42),
+    0 3px 12px -7px rgb(var(--shadow) / 0.3);
+}
+
+.dark .widget-clock-panel {
+  background-color: rgb(24 24 27 / 0.78);
+  border-color: rgb(255 255 255 / 0.14);
+}
+
+.glass-hover {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.glass-hover:hover {
+  background-color: rgb(var(--panel) / 0.86);
+  border-color: rgb(var(--panel-border) / 0.22);
+}
+
+/* ---------- Focus visibility (never remove, only soften) ---------- */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.5rem;
+}
+
+/* ---------- Scrollbars ---------- */
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--text-muted) / 0.4) transparent;
+}
+
+.scroll-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scroll-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-thin::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--text-muted) / 0.35);
+  border-radius: 9999px;
+}
+
+.scroll-thin::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(var(--text-muted) / 0.6);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---------- Fixed widget strip ---------- */
+.dashboard-widget-scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(249 115 22 / 0.58) transparent;
+  scroll-snap-type: x proximity;
+}
+.dashboard-widget-scroll::-webkit-scrollbar { height: 5px; }
+.dashboard-widget-scroll::-webkit-scrollbar-track { background: transparent; }
+.dashboard-widget-scroll::-webkit-scrollbar-thumb { background: rgb(249 115 22 / 0.58); border-radius: 9999px; }
+.dashboard-widget-card { min-width: 0; scroll-snap-align: start; }
+@media (min-width: 768px) {
+  .dashboard-widget-scroll { scrollbar-width: none; }
+  .dashboard-widget-scroll::-webkit-scrollbar { display: none; }
+}
+@media (max-width: 380px) {
+  .dashboard-widget-grid--multi { min-width: 620px !important; gap: 0.75rem; }
+  .dashboard-widget-card { padding-left: 0.75rem; padding-right: 0.75rem; }
+}
+/* ---------- Windows High Contrast ---------- */
+@media (forced-colors: active) {
+  :where(a, button, input, textarea, select, [tabindex]):focus-visible { outline: 3px solid Highlight; outline-offset: 3px; forced-color-adjust: none; }
+  .glass-panel, .widget-clock-panel { border: 1px solid CanvasText; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+/* ---------- Animations ---------- */
+@keyframes smriti-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes smriti-scale-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes smriti-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes smriti-pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgb(249 115 22 / 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgb(249 115 22 / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(249 115 22 / 0);
+  }
+}
+
+.animate-fade-in {
+  animation: smriti-fade-in 220ms ease-out both;
+}
+
+.animate-scale-in {
+  animation: smriti-scale-in 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-slide-up {
+  animation: smriti-slide-up 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-pulse-ring {
+  animation: smriti-pulse-ring 1.6s ease-out infinite;
+}
+
+/* ---------- Dragging ---------- */
+[data-dragging="true"] {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+[data-dragging="true"] * {
+  cursor: grabbing !important;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

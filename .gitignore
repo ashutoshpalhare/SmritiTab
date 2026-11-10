@@ -1,7 +1,10 @@
-# Generated extension package
+# Node dependencies
+node_modules/
+
+# Generated Vite builds
 dist/
+dist-extension/
 
 # Local tooling / OS files
-node_modules/
 .DS_Store
 *.log

@@ -1,29 +1,28 @@
-# Accessibility and UX QA
+# Accessibility and responsive UX
 
-## Phase 4 changes
+## Current source implementation
 
-- Keep the generated dashboard bundle untouched; refinements are loaded as separate stylesheets.
-- Keyboard focus uses the existing orange product accent, with a clear 3px outline and offset.
-- Windows High Contrast / forced-colors mode receives a system-color focus outline and non-glass widget borders.
-- The existing generated dashboard stylesheet already supports `prefers-reduced-motion: reduce`; the widget overrides also remove hover transitions.
-- The Weather → Clock → Quote widget strip stays in one row. On narrow screens it becomes horizontally scrollable with touch momentum, visible orange scrollbar thumb and snap points. Very narrow screens receive narrower card tracks instead of a forced vertical stack.
+- Keyboard focus uses the orange product accent with a visible outline.
+- Light, dark and system themes are supported.
+- Reduced-motion preferences are respected by the global stylesheet.
+- Windows High Contrast / forced-colors mode receives a system Highlight focus outline and visible widget borders.
+- Widget header order is Weather → Clock → Quote, with the clock as the hero.
+- The header remains one row on narrow screens and can scroll horizontally without forcing the cards into a vertical stack.
+- Weather and quote panels use compact glass surfaces with a narrow orange leading accent; the clock uses a slightly stronger transparent glass treatment and a subtle orange top line.
+- Clock AM/PM is a separate orange element and is omitted in 24-hour mode.
 
-## Phase 4 exit status
+## Manual checks
 
-**Phase 4 implementation: COMPLETE.** The keyboard-focus, forced-colors and responsive widget-strip refinements are committed, and automated regression coverage passes. Real Chrome/assistive-technology checks are explicitly carried into Phase 5 release QA; they are not represented as already executed.
+Test the generated `dist-extension/` in Chrome at 320px, 375px, 640px, tablet and desktop widths:
 
-## Manual verification checklist
+1. Confirm the widget row is above search and does not overlap the top bar.
+2. Confirm Weather, Clock and Quote remain in the requested order; scroll the row horizontally on mobile.
+3. Confirm AM/PM is visually separate and orange; switch between 12-hour and 24-hour settings.
+4. Toggle each widget independently and confirm remaining widgets use the available layout without blank columns.
+5. Use Tab and Shift+Tab through search, widgets, dock, bookmark controls and dialogs.
+6. Confirm light/dark themes retain readable glass surfaces and visible orange focus.
+7. Enable reduced motion and confirm transitions are minimized.
+8. Enable Windows High Contrast / forced-colors and confirm focus rings and panel boundaries remain visible.
+8. Check extension errors and browser console after load.
 
-Run these checks in Chrome with the extension loaded from both the repository root and `dist/`:
-
-1. Use Tab and Shift+Tab from the New Tab page. Every interactive control should show a clearly visible orange focus outline.
-2. Activate buttons, links, switches and dialogs using Enter or Space where appropriate.
-3. Verify focus remains visible on search inputs, bookmark controls, dock items, widget actions and modal close controls.
-4. Enable Windows High Contrast / forced-colors mode and confirm focused controls and widget boundaries remain visible.
-5. Enable the operating system's reduced-motion preference and confirm dashboard transitions/animations are minimized.
-6. Repeat in light and dark themes and at 320px, 375px, 640px and desktop widths. Confirm the widget strip remains one horizontal row and can be scrolled without clipping the rest of the page.
-7. Confirm existing settings, bookmarks, notes, tasks and favorites remain unchanged after updating the extension.
-
-## Scope and limitations
-
-Automated checks verify stylesheet loading and the presence of the accessibility/responsive contracts. They do not prove every runtime control is keyboard-operable or that all text/background combinations meet WCAG contrast thresholds. Those require real-browser and assistive-technology checks. The manual matrix remains a release smoke-test responsibility; no unexecuted Chrome test is represented as passed.
+Automated tests cover layout contracts and manifest assets, but only a real Chrome session can validate the final rendered appearance and browser integration.
