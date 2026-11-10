@@ -122,7 +122,7 @@ function QuoteWidget() {
           label="Show another quote"
           size="sm"
           className="h-7 w-7 shrink-0 text-orange-500 hover:bg-orange-500/10"
-          onClick={() => setIndex((value) => (value + 1) % QUOTES.length)}
+          onClick={() => setIndex((value) => (value + 1) % Math.max(QUOTES.length, 1))}
         />
       </div>
     </section>
@@ -165,4 +165,5 @@ export function WidgetLayer() {
         {showQuote ? <QuoteWidget /> : null}
       </div>
     </section>
+  );
 }
