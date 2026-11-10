@@ -45,7 +45,6 @@ const palettes = [
 for (let index = 3; index <= 100; index += 1) {
   const number = String(index).padStart(3, "0");
   const [base, middle, glow] = palettes[(index * 7) % palettes.length];
-  const angle = (index * 37) % 360;
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
   <defs>
     <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
