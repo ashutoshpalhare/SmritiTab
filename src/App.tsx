@@ -189,21 +189,17 @@ function Dashboard() {
       {/* ----------------------------------------------------------- main */}
       <main
         className={cn(
-          "relative z-10 flex h-full flex-col items-center justify-start px-4 pb-24 pt-36 transition-opacity duration-300 sm:px-6",
+          "relative z-10 flex h-full flex-col items-center justify-start overflow-y-auto px-4 pb-24 pt-28 transition-opacity duration-300 sm:px-6",
           settings.railVisible && "lg:pr-[21.5rem]",
           chromeHidden && "pointer-events-none opacity-0",
         )}
       >
+        <WidgetLayer />
         <SearchBar onNavigate={openUrl} />
         <div className="mt-5 flex min-h-0 w-full flex-1 justify-center">
           <BookmarksPanel />
         </div>
       </main>
-
-      {/* --------------------------------------------------------- widgets */}
-      <div className={cn("transition-opacity duration-300", chromeHidden && "opacity-0")}>
-        <WidgetLayer />
-      </div>
 
       {/* ---------------------------------------------------------- windows */}
       <div
