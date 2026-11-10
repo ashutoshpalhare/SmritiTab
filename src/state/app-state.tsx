@@ -240,7 +240,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const category: Category = {
         id: uid("cat"),
         name: name.trim() || "Untitled",
-        accent: accent ?? "#6366f1",
+        accent: accent ?? "#f97316",
       };
       setData((prev) => ({
         ...prev,
