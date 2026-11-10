@@ -86,7 +86,7 @@ GitHub Actions runs:
 - MV3 extension build
 - Manifest, icon, permission, background-worker and wallpaper validation
 
-See [Source build guide](docs/source-build.md), [Architecture](docs/architecture.md), [Testing](docs/testing.md), [Accessibility](docs/accessibility.md) and [Release readiness](docs/release-readiness.md).
+See [Source build guide](docs/source-build.md), [Branch reconciliation](docs/branch-reconciliation.md), [Architecture](docs/architecture.md), [Testing](docs/testing.md), [Accessibility](docs/accessibility.md) and [Release readiness](docs/release-readiness.md).
 
 ## Preserved main-branch project history
 
