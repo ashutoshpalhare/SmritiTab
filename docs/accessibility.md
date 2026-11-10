@@ -5,6 +5,7 @@
 - Keyboard focus uses the orange product accent with a visible outline.
 - Light, dark and system themes are supported.
 - Reduced-motion preferences are respected by the global stylesheet.
+- Windows High Contrast / forced-colors mode receives a system Highlight focus outline and visible widget borders.
 - Widget header order is Weather → Clock → Quote, with the clock as the hero.
 - The header remains one row on narrow screens and can scroll horizontally without forcing the cards into a vertical stack.
 - Weather and quote panels use compact glass surfaces with a narrow orange leading accent; the clock uses a slightly stronger transparent glass treatment and a subtle orange top line.
@@ -21,6 +22,7 @@ Test the generated `dist-extension/` in Chrome at 320px, 375px, 640px, tablet an
 5. Use Tab and Shift+Tab through search, widgets, dock, bookmark controls and dialogs.
 6. Confirm light/dark themes retain readable glass surfaces and visible orange focus.
 7. Enable reduced motion and confirm transitions are minimized.
+8. Enable Windows High Contrast / forced-colors and confirm focus rings and panel boundaries remain visible.
 8. Check extension errors and browser console after load.
 
 Automated tests cover layout contracts and manifest assets, but only a real Chrome session can validate the final rendered appearance and browser integration.
