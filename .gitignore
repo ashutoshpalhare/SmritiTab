@@ -1,0 +1,10 @@
+# Node dependencies
+node_modules/
+
+# Generated Vite builds
+dist/
+dist-extension/
+
+# Local tooling / OS files
+.DS_Store
+*.log
