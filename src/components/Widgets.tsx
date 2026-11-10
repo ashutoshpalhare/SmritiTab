@@ -155,7 +155,7 @@ export function WidgetLayer() {
       <div
         className={cn(
           "dashboard-widget-grid grid items-center gap-3 md:gap-4",
-          visibleCount > 1 && "min-w-[680px] md:min-w-0",
+          visibleCount > 1 && "dashboard-widget-grid--multi min-w-[680px] md:min-w-0",
           visibleCount === 1 && "grid-cols-1",
           columns,
         )}
