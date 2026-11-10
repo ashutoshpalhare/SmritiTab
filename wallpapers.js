@@ -3,8 +3,8 @@
  *
  * This is the ONLY file you need to edit to manage wallpapers:
  *   - Add or remove entries in `WALLPAPERS` below.
- *   - Local images live in `assets/wallpapers/` and are referenced by file
- *     name (they are copied to `wallpapers/` in the build output).
+ *   - Two curated PNGs ship in `assets/`; the build creates the remaining
+ *     local SVG gradients in `wallpapers/` so the picker works offline.
  *   - External images use a full https URL.
  *
  * The dashboard loads only the single selected wallpaper — entries are never
