@@ -13,7 +13,7 @@ describe("fixed dashboard header", () => {
     expect(widgets).toContain("widget-clock-panel");
     expect(widgets).toContain("{period}");
     expect(widgets).toContain("text-orange-500");
-    expect(widgets).not.toMatch(/useDrag|position:\\s*absolute/);
+    expect(widgets).not.toMatch(/useDrag|position:\s*absolute/);
   });
 
   it("places widgets in the dashboard flow before search", () => {
