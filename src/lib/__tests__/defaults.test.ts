@@ -56,7 +56,7 @@ describe("collection normalisation", () => {
       "not an object",
     ]);
     expect(categories).toHaveLength(1);
-    expect(categories[0]).toEqual({ id: "a", name: "A", accent: "#6366f1" });
+    expect(categories[0]).toEqual({ id: "a", name: "A", accent: "#f97316" });
   });
 
   it("reassigns apps of an unknown category", () => {
