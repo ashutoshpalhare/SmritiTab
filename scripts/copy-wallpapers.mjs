@@ -6,7 +6,8 @@
  * without a network request or a Python/Pillow build dependency.
  */
 import { copyFileSync, existsSync, mkdirSync, writeFileSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const target = process.argv[2];
 if (!target) {
@@ -14,7 +15,7 @@ if (!target) {
   process.exit(1);
 }
 
-const root = resolve(".");
+const root = dirname(fileURLToPath(import.meta.url));
 const destination = join(resolve(target), "wallpapers");
 mkdirSync(destination, { recursive: true });
 
@@ -31,14 +32,14 @@ for (const [source, output] of [
 }
 
 const palettes = [
-  ["#111827", "#7c2d12", "#f97316"],
+  ["#111111", "#7c2d12", "#f97316"],
   ["#18181b", "#713f12", "#f59e0b"],
-  ["#0f172a", "#7f1d1d", "#fb7185"],
+  ["#1c1917", "#9a3412", "#fb923c"],
   ["#171717", "#431407", "#ea580c"],
-  ["#1e1b4b", "#7c2d12", "#fdba74"],
-  ["#111827", "#3f1d2e", "#fb923c"],
-  ["#18181b", "#4c1d95", "#f97316"],
-  ["#0c1424", "#164e63", "#fb923c"],
+  ["#292524", "#78350f", "#fdba74"],
+  ["#111111", "#7f1d1d", "#fb923c"],
+  ["#18181b", "#9a3412", "#f97316"],
+  ["#0c0a09", "#451a03", "#fb923c"],
 ];
 
 for (let index = 3; index <= 100; index += 1) {
