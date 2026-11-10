@@ -162,7 +162,7 @@ export function SearchBar({ onNavigate }: SearchBarProps) {
           event.preventDefault();
           submit(query);
         }}
-        className="glass-panel-strong flex items-center gap-2 rounded-2xl px-3 py-2 transition focus-within:ring-2 focus-within:ring-indigo-400/60"
+        className="glass-panel-strong flex items-center gap-2 rounded-2xl px-3 py-2 transition focus-within:ring-2 focus-within:ring-orange-400/60"
         role="search"
       >
         <Icon name="search" className="ml-1 h-5 w-5 text-slate-400" />
@@ -232,9 +232,9 @@ export function SearchBar({ onNavigate }: SearchBarProps) {
           className={cn(
             "grid h-9 w-9 place-items-center rounded-xl transition",
             voice.supported
-              ? "text-slate-500 hover:bg-slate-900/5 hover:text-indigo-500 dark:text-slate-300 dark:hover:bg-white/10"
+              ? "text-slate-500 hover:bg-slate-900/5 hover:text-orange-500 dark:text-slate-300 dark:hover:bg-white/10"
               : "cursor-not-allowed text-slate-300 dark:text-slate-600",
-            listening && "animate-pulse-ring bg-indigo-500/15 text-indigo-500",
+            listening && "animate-pulse-ring bg-orange-500/15 text-orange-500",
           )}
         >
           <Icon name="mic" className="h-5 w-5" />
@@ -282,7 +282,7 @@ export function SearchBar({ onNavigate }: SearchBarProps) {
                 {item.label}
               </span>
               {item.id === provider.id ? (
-                <Icon name="check" className="h-4 w-4 text-indigo-500" />
+                <Icon name="check" className="h-4 w-4 text-orange-500" />
               ) : null}
             </button>
           ))}
