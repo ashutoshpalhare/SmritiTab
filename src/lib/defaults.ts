@@ -169,6 +169,7 @@ export const DEFAULT_DOCK: DockConfig = {
 /* ----------------------------------------------------------- normalisers */
 
 const THEMES = new Set(["light", "dark", "system"]);
+const ACCENTS = new Set(["#f97316", "#ea580c", "#fb923c", "#f59e0b"]);
 const WALLPAPERS = new Set(["aurora", "dune", "mesh", "mist", "solid"]);
 const ENGINES = new Set<SearchEngineId>([
   "google",
@@ -190,7 +191,9 @@ export function normalizeSettings(raw: unknown): Settings {
     wallpaper: WALLPAPERS.has(wallpaper) ? wallpaper : DEFAULT_SETTINGS.wallpaper,
     wallpaperMode: raw.wallpaperMode === "fixed" ? "fixed" : "random",
     fixedWallpaperId: asString(raw.fixedWallpaperId, DEFAULT_SETTINGS.fixedWallpaperId),
-    accent: asString(raw.accent, DEFAULT_SETTINGS.accent),
+    accent: ACCENTS.has(asString(raw.accent, DEFAULT_SETTINGS.accent).toLowerCase())
+      ? asString(raw.accent, DEFAULT_SETTINGS.accent).toLowerCase()
+      : DEFAULT_SETTINGS.accent,
     searchEngine: ENGINES.has(engine) ? engine : DEFAULT_SETTINGS.searchEngine,
     openInNewTab: asBoolean(raw.openInNewTab, DEFAULT_SETTINGS.openInNewTab),
     temperatureUnit:
