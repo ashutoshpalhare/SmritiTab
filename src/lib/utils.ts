@@ -50,16 +50,16 @@ export function domainOf(value: string): string {
 /** Deterministic brand colour derived from a string (used for favicon tiles). */
 export function colorFromString(value: string): string {
   const palette = [
-    "#6366f1",
-    "#8b5cf6",
-    "#ec4899",
     "#f97316",
-    "#10b981",
-    "#0ea5e9",
-    "#eab308",
-    "#ef4444",
-    "#14b8a6",
-    "#a855f7",
+    "#ea580c",
+    "#fb923c",
+    "#f59e0b",
+    "#c2410c",
+    "#b45309",
+    "#9a3412",
+    "#e11d48",
+    "#be123c",
+    "#d97706",
   ];
   let hash = 0;
   for (let i = 0; i < value.length; i += 1) {
