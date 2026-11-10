@@ -24,7 +24,7 @@ function ClockWidget() {
   return (
     <section
       aria-label="Clock"
-      className="widget-clock-panel relative flex min-h-40 flex-col items-center justify-center overflow-hidden rounded-3xl px-5 py-5 text-center sm:min-h-44 sm:px-8"
+      className="widget-clock-panel dashboard-widget-card relative flex min-h-40 flex-col items-center justify-center overflow-hidden rounded-3xl px-5 py-5 text-center sm:min-h-44 sm:px-8"
     >
       <span
         aria-hidden="true"
@@ -66,7 +66,7 @@ function WeatherWidget() {
   return (
     <section
       aria-label="Weather"
-      className="glass-panel flex min-h-32 min-w-0 flex-col justify-center rounded-2xl border-l-2 border-l-orange-500 px-4 py-3 sm:min-h-36 sm:px-5"
+      className="glass-panel dashboard-widget-card flex min-h-32 min-w-0 flex-col justify-center rounded-2xl border-l-2 border-l-orange-500 px-4 py-3 sm:min-h-36 sm:px-5"
     >
       <div className="mb-2 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
         <Icon name="cloud" className="h-3.5 w-3.5 text-orange-500" />
@@ -150,11 +150,11 @@ export function WidgetLayer() {
   return (
     <section
       aria-label="Dashboard widgets"
-      className="mb-6 w-full max-w-6xl overflow-x-auto pb-1 no-scrollbar"
+      className="dashboard-widget-scroll mb-6 w-full max-w-6xl pb-1"
     >
       <div
         className={cn(
-          "grid items-center gap-3 md:gap-4",
+          "dashboard-widget-grid grid items-center gap-3 md:gap-4",
           visibleCount > 1 && "min-w-[680px] md:min-w-0",
           visibleCount === 1 && "grid-cols-1",
           columns,
