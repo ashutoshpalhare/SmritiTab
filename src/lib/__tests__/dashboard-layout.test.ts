@@ -16,6 +16,15 @@ describe("fixed dashboard header", () => {
     expect(widgets).not.toMatch(/useDrag|position:\s*absolute/);
   });
 
+  it("keeps mobile scrolling, reduced motion and forced-colors support", () => {
+    const css = read("src/index.css");
+    expect(css).toContain(".dashboard-widget-scroll");
+    expect(css).toContain("scroll-snap-type: x proximity");
+    expect(css).toContain("@media (prefers-reduced-motion: reduce)");
+    expect(css).toContain("@media (forced-colors: active)");
+    expect(css).toContain("outline: 3px solid Highlight");
+  });
+
   it("places widgets in the dashboard flow before search", () => {
     const app = read("src/App.tsx");
     const main = app.slice(app.indexOf("<main"), app.indexOf("</main>"));
