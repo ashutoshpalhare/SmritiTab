@@ -20,19 +20,21 @@ import { WindowProvider } from "./state/window-manager";
 import type { AppEntry, ThemeMode } from "./types";
 
 /** Applies the light/dark theme to the document root. */
-function useTheme(mode: ThemeMode) {
+function useTheme(mode: ThemeMode, accent: string) {
   useEffect(() => {
     const root = document.documentElement;
     const media = window.matchMedia("(prefers-color-scheme: dark)");
     const apply = () => {
       const dark = mode === "dark" || (mode === "system" && media.matches);
+      const safeAccent = /^#[0-9a-f]{6}$/i.test(accent) ? accent : "#f97316";
+      root.style.setProperty("--accent", safeAccent);
       root.classList.toggle("dark", dark);
       root.style.colorScheme = dark ? "dark" : "light";
     };
     apply();
     media.addEventListener("change", apply);
     return () => media.removeEventListener("change", apply);
-  }, [mode]);
+  }, [mode, accent]);
 }
 
 function Dashboard() {
@@ -40,7 +42,7 @@ function Dashboard() {
   const { openUrl, openInternal } = useNavigation();
   const [focusMode, setFocusMode] = useState(false);
 
-  useTheme(settings.theme);
+  useTheme(settings.theme, settings.accent);
 
   /* A fresh wallpaper per tab (random mode) or the fixed Settings choice.
      Only the selected image is loaded, with a gradient underneath so the
