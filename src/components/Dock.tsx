@@ -71,13 +71,13 @@ export function Dock({ onOpenApp, onOpenInternal, onToggleVisible }: DockProps) 
           title={item.label}
           aria-label={item.label}
           className={cn(
-            "relative grid place-items-center rounded-xl bg-gradient-to-br from-slate-900/5 to-slate-900/10 text-slate-600 transition hover:from-violet-500/90 hover:to-indigo-600/90 hover:text-white dark:text-slate-300 dark:hover:text-white",
+            "relative grid place-items-center rounded-xl bg-gradient-to-br from-slate-900/5 to-slate-900/10 text-slate-600 transition hover:from-orange-500/90 hover:to-orange-600/90 hover:text-white dark:text-slate-300 dark:hover:text-white",
             sizes.button,
           )}
         >
           <Icon name={item.icon} className={sizes.icon} />
           {item.running ? (
-            <span className="absolute -bottom-0.5 h-1.5 w-1.5 rounded-full bg-indigo-400" />
+            <span className="absolute -bottom-0.5 h-1.5 w-1.5 rounded-full bg-orange-400" />
           ) : null}
         </button>
       ))}
