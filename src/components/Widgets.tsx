@@ -1,10 +1,11 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useClock } from "../hooks/useClock";
 import { QUOTES } from "../lib/quotes";
 import { formatClock, greetingFor } from "../lib/utils";
 import { describeWeather, formatTemperature } from "../lib/weather";
 import { useApp } from "../state/app-state";
 import { useWeatherController } from "../state/weather-state";
+import { cn } from "../utils/cn";
 import { Icon, IconButton, Spinner } from "./ui";
 
 /**
@@ -23,14 +24,14 @@ function ClockWidget() {
   return (
     <section
       aria-label="Clock"
-      className="glass-panel-strong relative flex min-h-40 flex-col items-center justify-center overflow-hidden rounded-3xl px-5 py-5 text-center sm:min-h-44 sm:px-8"
+      className="widget-clock-panel relative flex min-h-40 flex-col items-center justify-center overflow-hidden rounded-3xl px-5 py-5 text-center sm:min-h-44 sm:px-8"
     >
       <span
         aria-hidden="true"
         className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent"
       />
       <div className="flex items-baseline justify-center gap-2 tabular-nums">
-        <time className="text-5xl font-semibold leading-none tracking-[-0.075em] text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
+        <time dateTime={now.toISOString()} className="text-5xl font-semibold leading-none tracking-[-0.075em] text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
           {time}
         </time>
         {period ? (
@@ -98,7 +99,7 @@ function WeatherWidget() {
 
 function QuoteWidget() {
   const [index, setIndex] = useState(0);
-  const quote = useMemo(() => QUOTES[index % QUOTES.length], [index]);
+  const quote = QUOTES.length > 0 ? QUOTES[index % QUOTES.length] : { text: "Make space for what matters.", author: "SmritiTab" };
 
   return (
     <section
@@ -133,19 +134,35 @@ export function WidgetLayer() {
   const showWeather = settings.showWeatherWidget;
   const showClock = settings.showClockWidget;
   const showQuote = settings.showQuoteWidget;
+  const visibleCount = Number(showWeather) + Number(showClock) + Number(showQuote);
 
-  if (!showWeather && !showClock && !showQuote) return null;
+  if (visibleCount === 0) return null;
+
+  const columns =
+    showWeather && showClock && showQuote
+      ? "grid-cols-[minmax(0,0.78fr)_minmax(0,2fr)_minmax(0,0.78fr)]"
+      : showWeather && showClock
+        ? "grid-cols-[minmax(0,0.78fr)_minmax(0,2fr)]"
+        : showClock && showQuote
+          ? "grid-cols-[minmax(0,2fr)_minmax(0,0.78fr)]"
+          : "grid-cols-2";
 
   return (
     <section
       aria-label="Dashboard widgets"
       className="mb-6 w-full max-w-6xl overflow-x-auto pb-1 no-scrollbar"
     >
-      <div className="grid min-w-[680px] grid-cols-[0.78fr_2fr_0.78fr] items-stretch gap-3 md:min-w-0 md:gap-4">
-        {showWeather ? <WeatherWidget /> : <div aria-hidden="true" /> }
-        {showClock ? <ClockWidget /> : <div aria-hidden="true" /> }
-        {showQuote ? <QuoteWidget /> : <div aria-hidden="true" /> }
+      <div
+        className={cn(
+          "grid items-center gap-3 md:gap-4",
+          visibleCount > 1 && "min-w-[680px] md:min-w-0",
+          visibleCount === 1 && "grid-cols-1",
+          columns,
+        )}
+      >
+        {showWeather ? <WeatherWidget /> : null}
+        {showClock ? <ClockWidget /> : null}
+        {showQuote ? <QuoteWidget /> : null}
       </div>
     </section>
-  );
 }
