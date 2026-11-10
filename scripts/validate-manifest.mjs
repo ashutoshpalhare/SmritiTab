@@ -100,7 +100,7 @@ check(!/unpkg|jsdelivr|cdn\./.test(html), "no CDN hosted scripts are referenced"
 /* The local wallpaper library must ship with the package. */
 const wallpaperDir = join(root, "wallpapers");
 const wallpaperCount = existsSync(wallpaperDir)
-  ? readdirSync(wallpaperDir).filter((file) => /\\.(?:jpg|png|svg)$/i.test(file)).length
+  ? readdirSync(wallpaperDir).filter((file) => /\.(?:jpg|png|svg)$/i.test(file)).length
   : 0;
 check(
   wallpaperCount >= 100,
