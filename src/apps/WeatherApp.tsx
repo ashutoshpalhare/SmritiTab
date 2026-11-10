@@ -115,7 +115,7 @@ export function WeatherApp() {
                     aria-pressed={settings.temperatureUnit === unit}
                     className={`rounded-lg px-2.5 py-1 text-xs font-medium transition ${
                       settings.temperatureUnit === unit
-                        ? "bg-gradient-to-br from-violet-500 to-indigo-600 text-white"
+                        ? "bg-gradient-to-br from-orange-500 to-orange-600 text-white"
                         : "text-slate-500 hover:bg-slate-900/5 dark:text-slate-400 dark:hover:bg-white/10"
                     }`}
                   >
