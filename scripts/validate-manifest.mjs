@@ -87,6 +87,8 @@ const allowedPermissions = new Set([
   "clipboardRead",
   "clipboardWrite",
   "contextMenus",
+  "tabs",
+  "tabGroups",
 ]);
 const requiredPermissions = [
   "storage",
@@ -108,6 +110,17 @@ const broadHosts = (manifest.host_permissions ?? []).filter(
   (host) => !/^https:\/\/[a-z0-9.-]+\/[^]*$/.test(host),
 );
 check(broadHosts.length === 0, "host permissions are limited to specific https origins");
+const requiredHosts = [
+  "https://api.open-meteo.com/*",
+  "https://geocoding-api.open-meteo.com/*",
+  "https://images.unsplash.com/*",
+  "https://fonts.googleapis.com/*",
+  "https://fonts.gstatic.com/*",
+];
+check(
+  requiredHosts.every((host) => (manifest.host_permissions ?? []).includes(host)),
+  "weather, wallpaper and font hosts from the main-branch runtime are retained",
+);
 
 /* The packaged page must not contain inline scripts (MV3 CSP). */
 const html = readFileSync(join(root, "index.html"), "utf8");
