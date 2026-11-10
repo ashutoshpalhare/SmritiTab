@@ -31,7 +31,7 @@ describe("wallpaper library", () => {
     const root = join(dirname(fileURLToPath(import.meta.url)), "../../../");
     const output = mkdtempSync(join(tmpdir(), "smrititab-wallpapers-"));
     try {
-      execFileSync(process.execPath, [join(root, "scripts/copy-wallpapers.mjs"), output]);
+      execFileSync(process.execPath, [join(root, "scripts/copy-wallpapers.mjs"), output], { cwd: tmpdir() });
       const wallpaperDir = join(output, "wallpapers");
       const files = readdirSync(wallpaperDir);
       const locals = ALL_WALLPAPERS.filter((wallpaper) => wallpaper.source === "local");
