@@ -4,7 +4,7 @@ import {
   cacheWeather,
   fetchWeather,
   geocodeCity,
-  guessLocationFromTimeZone,
+  getBrowserLocation,
   loadCachedWeather,
   type GeocodeResult,
 } from "../lib/weather";
@@ -72,10 +72,11 @@ export function useWeather(): WeatherController {
       }
     }
 
-    const guess = guessLocationFromTimeZone();
-    locationRef.current = guess;
-    setLocation(guess);
-    return guess;
+    const current = await getBrowserLocation();
+    locationRef.current = current;
+    setLocation(current);
+    await store.write(StorageKeys.location, { ...current, updatedAt: Date.now() });
+    return current;
   }, []);
 
   const refresh = useCallback(async () => {
