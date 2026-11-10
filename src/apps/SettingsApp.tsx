@@ -20,6 +20,13 @@ const THEMES: Array<{ id: ThemeMode; label: string }> = [
   { id: "system", label: "System" },
 ];
 
+const ACCENTS = [
+  { value: "#f97316", label: "Orange" },
+  { value: "#ea580c", label: "Burnt orange" },
+  { value: "#fb923c", label: "Soft orange" },
+  { value: "#f59e0b", label: "Amber" },
+] as const;
+
 export function SettingsApp() {
   const {
     settings,
@@ -77,6 +84,29 @@ export function SettingsApp() {
                 >
                   {theme.label}
                 </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between gap-4">
+            <span className="text-sm text-slate-700 dark:text-slate-200">Accent color</span>
+            <div className="flex items-center gap-2" role="group" aria-label="Accent color">
+              {ACCENTS.map((accent) => (
+                <button
+                  key={accent.value}
+                  type="button"
+                  aria-label={accent.label}
+                  aria-pressed={settings.accent === accent.value}
+                  title={accent.label}
+                  onClick={() => updateSettings({ accent: accent.value })}
+                  style={{ backgroundColor: accent.value }}
+                  className={cn(
+                    "h-7 w-7 rounded-full border border-black/10 transition",
+                    settings.accent === accent.value
+                      ? "ring-2 ring-orange-500 ring-offset-2 ring-offset-white dark:ring-offset-slate-900"
+                      : "hover:scale-110",
+                  )}
+                />
               ))}
             </div>
           </div>
