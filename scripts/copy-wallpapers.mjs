@@ -15,7 +15,7 @@ if (!target) {
   process.exit(1);
 }
 
-const root = dirname(fileURLToPath(import.meta.url));
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const destination = join(resolve(target), "wallpapers");
 mkdirSync(destination, { recursive: true });
 
