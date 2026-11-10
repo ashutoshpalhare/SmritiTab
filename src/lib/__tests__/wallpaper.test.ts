@@ -1,4 +1,6 @@
-import { existsSync } from "node:fs";
+import { existsSync, mkdtempSync, readdirSync, rmSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
@@ -25,16 +27,22 @@ describe("wallpaper library", () => {
     expect(ids.size).toBe(ALL_WALLPAPERS.length);
   });
 
-  it("every local wallpaper file exists in assets/wallpapers/", () => {
-    const assetsDir = join(
-      dirname(fileURLToPath(import.meta.url)),
-      "../../../assets/wallpapers",
-    );
-    const locals = ALL_WALLPAPERS.filter((wallpaper) => wallpaper.source === "local");
-    expect(locals.length).toBeGreaterThanOrEqual(100);
-    for (const wallpaper of locals) {
-      const file = wallpaper.src.replace(/^wallpapers\//, "");
-      expect(existsSync(join(assetsDir, file)), wallpaper.src).toBe(true);
+  it("builds all local wallpaper assets without external services", () => {
+    const root = join(dirname(fileURLToPath(import.meta.url)), "../../../");
+    const output = mkdtempSync(join(tmpdir(), "smrititab-wallpapers-"));
+    try {
+      execFileSync(process.execPath, [join(root, "scripts/copy-wallpapers.mjs"), output]);
+      const wallpaperDir = join(output, "wallpapers");
+      const files = readdirSync(wallpaperDir);
+      const locals = ALL_WALLPAPERS.filter((wallpaper) => wallpaper.source === "local");
+      expect(locals.length).toBeGreaterThanOrEqual(100);
+      expect(files.filter((file) => /\\.(?:png|svg|jpg)$/i.test(file))).toHaveLength(100);
+      for (const wallpaper of locals) {
+        const file = wallpaper.src.replace(/^wallpapers\\//, "");
+        expect(existsSync(join(wallpaperDir, file)), wallpaper.src).toBe(true);
+      }
+    } finally {
+      rmSync(output, { recursive: true, force: true });
     }
   });
 
