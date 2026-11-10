@@ -242,7 +242,7 @@ export function normalizeCategories(raw: unknown): Category[] {
     result.push({
       id,
       name: name.slice(0, 40),
-      accent: asString(item.accent, "#6366f1"),
+      accent: asString(item.accent, "#f97316"),
     });
   }
   return result.length ? result : DEFAULT_CATEGORIES.map((c) => ({ ...c }));
