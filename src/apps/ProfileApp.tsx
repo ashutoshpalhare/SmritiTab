@@ -28,7 +28,7 @@ export function ProfileApp() {
     <div className="scroll-thin h-full min-h-0 overflow-y-auto">
       <div className="space-y-5 p-4">
         <div className="flex items-center gap-3">
-          <span className="grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 text-xl font-semibold text-white shadow-lg shadow-indigo-500/25">
+          <span className="grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 text-xl font-semibold text-white shadow-lg shadow-orange-500/25">
             {initialsOf(draft.name || "Guest")}
           </span>
           <div>
