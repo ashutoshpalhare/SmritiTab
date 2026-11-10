@@ -55,6 +55,17 @@ for (const [size, file] of Object.entries(manifest.icons ?? {})) {
   if (exists) {
     const bytes = statSync(iconPath).size;
     check(bytes > 0, `icon ${size} is not empty`);
+    if (file.toLowerCase().endsWith(".png")) {
+      const image = readFileSync(iconPath);
+      const signature = image.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
+      check(signature, `icon ${size} is a valid PNG file`);
+      if (signature && image.length >= 24) {
+        check(
+          image.readUInt32BE(16) === Number(size) && image.readUInt32BE(20) === Number(size),
+          `icon ${size} has the expected ${size}x${size} dimensions`,
+        );
+      }
+    }
   }
 }
 
@@ -77,6 +88,20 @@ const allowedPermissions = new Set([
   "clipboardWrite",
   "contextMenus",
 ]);
+const requiredPermissions = [
+  "storage",
+  "bookmarks",
+  "history",
+  "clipboardRead",
+  "clipboardWrite",
+  "contextMenus",
+  "tabs",
+  "tabGroups",
+];
+check(
+  requiredPermissions.every((permission) => (manifest.permissions ?? []).includes(permission)),
+  "all dashboard and main-branch Chrome API permissions are declared",
+);
 const unexpected = (manifest.permissions ?? []).filter((p) => !allowedPermissions.has(p));
 check(unexpected.length === 0, `permissions are minimal (unexpected: ${unexpected.join(", ") || "none"})`);
 const broadHosts = (manifest.host_permissions ?? []).filter(
