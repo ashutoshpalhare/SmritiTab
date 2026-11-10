@@ -1,35 +1,32 @@
-# Build and package the existing extension
+# Build and package
 
-## Requirements
+The current source build uses Vite and emits a Chrome-loadable Manifest V3 package.
 
-- Node.js 20 or newer
-- npm (ships with Node.js)
+For the complete command sequence and Chrome installation steps, see [source build guide](source-build.md).
 
 ## Commands
 
 ```sh
 npm ci
-npm test
-npm run verify
-npm run build
-npm run verify:dist
+npm run typecheck
+npm run test
+npm run build:extension
+npm run validate:manifest
 ```
 
-- `npm run verify` checks the checked-in extension.
-- `npm run build` copies current runtime files into a clean `dist/` directory and verifies the package.
-- `npm run verify:dist` checks the generated package again.
-- `dist/` is generated output and is intentionally ignored by Git.
+The extension output is `dist-extension/`. Vite copies `public/manifest.json`, `public/background.js` and `public/icons/` into the package, while bundling the React dashboard into local JavaScript/CSS assets. The wallpaper script then creates the complete offline wallpaper catalogue.
 
-## What the build does
+The extension mode intentionally keeps the JavaScript external to HTML. Manifest V3's extension page CSP does not permit the inline script produced by the single-file web build.
 
-The build copies the existing Manifest V3 runtime files unchanged: `manifest.json`, `index.html`, `background/service-worker.js` and the complete `assets/` directory (including the dashboard bundle, widget overrides and accessibility stylesheet).
+## Web preview
 
-It does not compile React, run Vite, regenerate the production bundle, alter storage keys or migrate user data. No React/Vite source recovery is required.
+```sh
+npm run dev
+npm run build:web
+```
 
-Load `dist/` through `chrome://extensions` → **Developer mode** → **Load unpacked** to test the packaged extension.
+The web build is for preview only; the Chrome extension should be loaded from `dist-extension/`.
 
-## Compatibility
+## Generated files
 
-The committed production assets are the runtime baseline. Keep them intact unless a change has been verified against the current feature inventory and existing user data. Do not replace the app with a partial rewrite.
-
-See [Phase 2 runtime audit](runtime-audit.md) for confirmed feature inventory and remaining manual Chrome checks, and [accessibility and UX QA](accessibility.md) for Phase 4 checks.
+Both `dist/` and `dist-extension/` are generated outputs and are ignored by Git. Never hand-edit generated bundles or package output.
