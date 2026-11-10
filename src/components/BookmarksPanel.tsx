@@ -131,10 +131,10 @@ function FolderTree({
               className={cn(
                 "group flex items-center gap-1 rounded-lg px-1.5 py-1.5 text-sm transition",
                 selectedId === folder.id
-                  ? "bg-gradient-to-br from-violet-500/15 to-indigo-600/15 text-slate-900 dark:text-white"
+                  ? "bg-gradient-to-br from-orange-500/15 to-amber-600/15 text-slate-900 dark:text-white"
                   : "text-slate-600 hover:bg-slate-900/5 dark:text-slate-300 dark:hover:bg-white/10",
                 dropTargetId === folder.id &&
-                  "bg-indigo-500/20 outline outline-2 outline-indigo-400",
+                  "bg-orange-500/20 outline outline-2 outline-orange-400",
               )}
             >
               <button
@@ -157,7 +157,7 @@ function FolderTree({
                 aria-current={selectedId === folder.id ? "true" : undefined}
                 className="flex min-w-0 flex-1 items-center gap-1.5 text-left"
               >
-                <Icon name="folder" className="h-4 w-4 shrink-0 text-indigo-400" />
+                <Icon name="folder" className="h-4 w-4 shrink-0 text-orange-400" />
                 <span className="truncate text-[13px]">{folder.title}</span>
               </button>
               <span className="shrink-0 text-[10px] tabular-nums text-slate-400">
@@ -500,14 +500,14 @@ export function BookmarksPanel() {
       {/* ------------------------------------------------------------ header */}
       <header className="flex flex-wrap items-center gap-2 border-b border-slate-900/10 px-4 py-3 dark:border-white/10">
         <div className="flex items-center gap-2">
-          <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 text-white">
+          <span className="grid h-8 w-8 place-items-center rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 text-white">
             <Icon name="bookmark" className="h-4 w-4" />
           </span>
           <h2 className="text-sm font-semibold tracking-tight text-slate-900 dark:text-white">
             Bookmarks
           </h2>
           {status === "ready" ? (
-            <Badge tone="violet">{flatFolders.length} folders</Badge>
+            <Badge tone="orange">{flatFolders.length} folders</Badge>
           ) : null}
         </div>
 
@@ -522,7 +522,7 @@ export function BookmarksPanel() {
             type="search"
             aria-label="Search all bookmarks"
             placeholder="Search all folders…"
-            className="w-full rounded-xl border border-slate-900/10 bg-white/60 py-1.5 pl-8 pr-8 text-xs outline-none placeholder:text-slate-400 focus:border-indigo-400 dark:border-white/10 dark:bg-slate-900/50 dark:text-slate-100"
+            className="w-full rounded-xl border border-slate-900/10 bg-white/60 py-1.5 pl-8 pr-8 text-xs outline-none placeholder:text-slate-400 focus:border-orange-400 dark:border-white/10 dark:bg-slate-900/50 dark:text-slate-100"
           />
           {query ? (
             <button
@@ -573,7 +573,7 @@ export function BookmarksPanel() {
       </header>
 
       {notice ? (
-        <p role="status" className="border-b border-slate-900/10 px-4 py-2 text-xs text-indigo-600 dark:border-white/10 dark:text-indigo-300">
+        <p role="status" className="border-b border-slate-900/10 px-4 py-2 text-xs text-orange-600 dark:border-white/10 dark:text-indigo-300">
           {notice}
         </p>
       ) : null}
@@ -683,7 +683,7 @@ export function BookmarksPanel() {
                       onClick={() => setSelectedFolderId(folder.id)}
                       className="flex items-center gap-1 rounded-lg bg-slate-900/5 px-2 py-1 text-[11px] transition hover:bg-slate-900/10 dark:bg-white/10 dark:hover:bg-white/15"
                     >
-                      <Icon name="folder" className="h-3 w-3 text-indigo-400" />
+                      <Icon name="folder" className="h-3 w-3 text-orange-400" />
                       {folder.title || "Folder"}
                     </button>
                   ))}
@@ -746,7 +746,7 @@ export function BookmarksPanel() {
                   {bookmarks.map((node, index) => (
                     <li key={node.id}>
                       {dropGap === index ? (
-                        <div aria-hidden="true" className="mx-2 my-0.5 h-0.5 rounded bg-indigo-500" />
+                        <div aria-hidden="true" className="mx-2 my-0.5 h-0.5 rounded bg-orange-500" />
                       ) : null}
                       <div
                         draggable
@@ -797,7 +797,7 @@ export function BookmarksPanel() {
                         />
                       </div>
                       {dropGap === bookmarks.length && index === bookmarks.length - 1 ? (
-                        <div aria-hidden="true" className="mx-2 my-0.5 h-0.5 rounded bg-indigo-500" />
+                        <div aria-hidden="true" className="mx-2 my-0.5 h-0.5 rounded bg-orange-500" />
                       ) : null}
                     </li>
                   ))}
