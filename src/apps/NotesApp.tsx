@@ -100,7 +100,7 @@ export function NotesApp() {
               >
                 <span className="flex items-center gap-1">
                   {note.pinned ? (
-                    <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
                   ) : null}
                   <span className="truncate text-xs font-medium text-slate-700 dark:text-slate-200">
                     {note.title || "Untitled note"}
