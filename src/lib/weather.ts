@@ -164,41 +164,37 @@ export function formatTemperature(value: number, unit: "c" | "f"): string {
 }
 
 /**
- * Best effort location guess derived from the IANA time zone — no extra
- * permission and no IP lookup is required.
+ * Uses the browser's explicit location permission instead of guessing a city
+ * from the device timezone. If permission is denied, the caller can offer
+ * manual city selection without silently showing a forecast for another place.
  */
-export function guessLocationFromTimeZone(): GeocodeResult {
-  let zone = "UTC";
-  try {
-    zone = Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
-  } catch {
-    zone = "UTC";
+export function getBrowserLocation(): Promise<GeocodeResult> {
+  if (typeof navigator === "undefined" || !navigator.geolocation) {
+    return Promise.reject(
+      new Error("Location is unavailable. Choose a city in Weather details."),
+    );
   }
-  const city = zone.split("/").pop()?.replace(/_/g, " ") ?? "Your area";
-  const overrides: Record<string, GeocodeResult> = {
-    "Asia/Kolkata": { name: "Kolkata", country: "India", latitude: 22.5726, longitude: 88.3639 },
-    "Asia/Calcutta": { name: "Kolkata", country: "India", latitude: 22.5726, longitude: 88.3639 },
-    "Asia/Tokyo": { name: "Tokyo", country: "Japan", latitude: 35.6762, longitude: 139.6503 },
-    "Asia/Singapore": { name: "Singapore", country: "Singapore", latitude: 1.3521, longitude: 103.8198 },
-    "Asia/Dubai": { name: "Dubai", country: "UAE", latitude: 25.2048, longitude: 55.2708 },
-    "Asia/Shanghai": { name: "Shanghai", country: "China", latitude: 31.2304, longitude: 121.4737 },
-    "Europe/London": { name: "London", country: "United Kingdom", latitude: 51.5072, longitude: -0.1276 },
-    "Europe/Berlin": { name: "Berlin", country: "Germany", latitude: 52.52, longitude: 13.405 },
-    "Europe/Paris": { name: "Paris", country: "France", latitude: 48.8566, longitude: 2.3522 },
-    "Europe/Madrid": { name: "Madrid", country: "Spain", latitude: 40.4168, longitude: -3.7038 },
-    "Europe/Amsterdam": { name: "Amsterdam", country: "Netherlands", latitude: 52.3676, longitude: 4.9041 },
-    "Europe/Moscow": { name: "Moscow", country: "Russia", latitude: 55.7558, longitude: 37.6173 },
-    "America/New_York": { name: "New York", country: "United States", latitude: 40.7128, longitude: -74.006 },
-    "America/Chicago": { name: "Chicago", country: "United States", latitude: 41.8781, longitude: -87.6298 },
-    "America/Denver": { name: "Denver", country: "United States", latitude: 39.7392, longitude: -104.9903 },
-    "America/Los_Angeles": { name: "Los Angeles", country: "United States", latitude: 34.0522, longitude: -118.2437 },
-    "America/Sao_Paulo": { name: "Sao Paulo", country: "Brazil", latitude: -23.5505, longitude: -46.6333 },
-    "Australia/Sydney": { name: "Sydney", country: "Australia", latitude: -33.8688, longitude: 151.2093 },
-    "Africa/Cairo": { name: "Cairo", country: "Egypt", latitude: 30.0444, longitude: 31.2357 },
-    "Africa/Johannesburg": { name: "Johannesburg", country: "South Africa", latitude: -26.2041, longitude: 28.0473 },
-    UTC: { name: "UTC", country: "", latitude: 51.5072, longitude: -0.1276 },
-  };
-  const match = overrides[zone];
-  if (match) return match;
-  return { name: city, country: "", latitude: 51.5072, longitude: -0.1276 };
+
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        resolve({
+          name: "Your location",
+          country: "",
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      (error) => {
+        const message =
+          error.code === 1
+            ? "Location permission was denied. Choose a city in Weather details."
+            : error.code === 3
+              ? "Location request timed out. Choose a city in Weather details."
+              : "Could not determine your location. Choose a city in Weather details.";
+        reject(new Error(message));
+      },
+      { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 },
+    );
+  });
 }
