@@ -707,11 +707,11 @@ export function Badge({
   tone = "neutral",
 }: {
   children: ReactNode;
-  tone?: "neutral" | "violet" | "green" | "amber" | "rose";
+  tone?: "neutral" | "orange" | "green" | "amber" | "rose";
 }) {
   const tones = {
     neutral: "bg-slate-900/5 text-slate-600 dark:bg-white/10 dark:text-slate-300",
-    violet: "bg-orange-500/15 text-orange-600 dark:text-orange-300",
+    orange: "bg-orange-500/15 text-orange-600 dark:text-orange-300",
     green: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-300",
     amber: "bg-amber-500/15 text-amber-600 dark:text-amber-300",
     rose: "bg-rose-500/15 text-rose-600 dark:text-rose-300",
