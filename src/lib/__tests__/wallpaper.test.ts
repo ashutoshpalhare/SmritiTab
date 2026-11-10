@@ -36,9 +36,9 @@ describe("wallpaper library", () => {
       const files = readdirSync(wallpaperDir);
       const locals = ALL_WALLPAPERS.filter((wallpaper) => wallpaper.source === "local");
       expect(locals.length).toBeGreaterThanOrEqual(100);
-      expect(files.filter((file) => /\\.(?:png|svg|jpg)$/i.test(file))).toHaveLength(100);
+      expect(files.filter((file) => /\.(?:png|svg|jpg)$/i.test(file))).toHaveLength(100);
       for (const wallpaper of locals) {
-        const file = wallpaper.src.replace(/^wallpapers\\//, "");
+        const file = wallpaper.src.replace(/^wallpapers\//, "");
         expect(existsSync(join(wallpaperDir, file)), wallpaper.src).toBe(true);
       }
     } finally {
