@@ -156,7 +156,7 @@ function Dashboard() {
       {!focusMode ? (
         <div className="absolute inset-x-0 top-0 z-40 flex items-center justify-between px-3 py-3 sm:px-4">
           <div className="glass-panel flex items-center gap-2 rounded-2xl py-1.5 pl-1.5 pr-3">
-            <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 text-white">
+            <span className="grid h-7 w-7 place-items-center rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 text-white">
               <Icon name="bookmark" className="h-4 w-4" />
             </span>
             <span className="text-sm font-semibold tracking-tight text-slate-900 dark:text-white">
