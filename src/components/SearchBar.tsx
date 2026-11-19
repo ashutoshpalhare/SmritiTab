@@ -5,6 +5,7 @@ import {
   buildDirectUrl,
   buildSearchUrl,
   getProvider,
+  moveProviderSelection,
   providerIcon,
 } from "../lib/search";
 import { cn } from "../lib/utils";
@@ -60,6 +61,11 @@ export function SearchBar({ onNavigate }: SearchBarProps) {
     if (voice.error) setVoiceError(voice.error);
   }, [voice.error]);
 
+  /* Keep keyboard focus inside the provider list while it is open. */
+  useEffect(() => {
+    if (menuOpen) menuRef.current?.focus();
+  }, [menuOpen]);
+
   /* Close the provider menu when clicking outside of it. */
   useEffect(() => {
     if (!menuOpen) return;
@@ -114,6 +120,7 @@ export function SearchBar({ onNavigate }: SearchBarProps) {
   const onInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "ArrowDown" && !menuOpen) {
       event.preventDefault();
+      setActiveIndex(Math.max(0, providers.findIndex((item) => item.id === provider.id)));
       setMenuOpen(true);
       return;
     }
@@ -136,12 +143,10 @@ export function SearchBar({ onNavigate }: SearchBarProps) {
   const onMenuKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "ArrowDown") {
       event.preventDefault();
-      setActiveIndex((index) => (index + 1) % SEARCH_PROVIDERS.length);
+      setActiveIndex((index) => moveProviderSelection(index, 1));
     } else if (event.key === "ArrowUp") {
       event.preventDefault();
-      setActiveIndex(
-        (index) => (index - 1 + SEARCH_PROVIDERS.length) % SEARCH_PROVIDERS.length,
-      );
+      setActiveIndex((index) => moveProviderSelection(index, -1));
     } else if (event.key === "Enter") {
       event.preventDefault();
       const selected = SEARCH_PROVIDERS[activeIndex];
@@ -252,6 +257,7 @@ export function SearchBar({ onNavigate }: SearchBarProps) {
           ref={menuRef}
           role="listbox"
           aria-label="Search engines"
+          aria-activedescendant={`search-provider-${providers[activeIndex]?.id ?? provider.id}`}
           tabIndex={-1}
           onKeyDown={onMenuKeyDown}
           className="glass-panel-strong animate-scale-in absolute left-0 right-0 top-[calc(100%+8px)] z-50 overflow-hidden rounded-2xl p-1.5"
@@ -259,9 +265,10 @@ export function SearchBar({ onNavigate }: SearchBarProps) {
           {providers.map((item, index) => (
             <button
               key={item.id}
+              id={`search-provider-${item.id}`}
               type="button"
               role="option"
-              aria-selected={item.id === provider.id}
+              aria-selected={index === activeIndex}
               onMouseEnter={() => setActiveIndex(index)}
               onClick={() => chooseProvider(item.id)}
               className={cn(
