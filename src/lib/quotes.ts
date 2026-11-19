@@ -74,3 +74,18 @@ export const WALLPAPERS: Wallpaper[] = [
 export function getWallpaper(id: WallpaperId): Wallpaper {
   return WALLPAPERS.find((wallpaper) => wallpaper.id === id) ?? WALLPAPERS[0];
 }
+
+/**
+ * Returns the same quote index for every new tab opened on the same local day.
+ * The next-quote control can still move away from this daily starting point.
+ */
+export function getDailyQuoteIndex(
+  quotes: readonly Quote[],
+  date: Date = new Date(),
+): number {
+  if (quotes.length === 0) return 0;
+  const day = Math.floor(
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / 86_400_000,
+  );
+  return ((day % quotes.length) + quotes.length) % quotes.length;
+}
