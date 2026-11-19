@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ChromeApiError,
   hasHistoryApi,
@@ -43,10 +43,20 @@ export function HistoryApp() {
   );
   const [error, setError] = useState<string | null>(null);
   const supported = hasHistoryApi();
+  const requestSequence = useRef(0);
+
+  useEffect(
+    () => () => {
+      // Ignore any Chrome history request that settles after this app closes.
+      requestSequence.current += 1;
+    },
+    [],
+  );
 
   const load = useCallback(
     async (text: string, selectedRange: Range) => {
       if (!supported) return;
+      const requestId = ++requestSequence.current;
       setStatus("loading");
       try {
         const startTime =
@@ -56,10 +66,12 @@ export function HistoryApp() {
           maxResults: 80,
           ...(startTime ? { startTime } : {}),
         });
+        if (requestId !== requestSequence.current) return;
         setEntries(results);
         setStatus("ready");
         setError(null);
       } catch (caught) {
+        if (requestId !== requestSequence.current) return;
         setStatus("error");
         setError(
           caught instanceof ChromeApiError
