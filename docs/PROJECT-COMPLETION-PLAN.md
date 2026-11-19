@@ -10,7 +10,7 @@
 |---|---|---|
 | 1 | Baseline audit, source-of-truth confirmation, scope freeze and completion plan | Complete |
 | 2 | Core dashboard experience: layout, search, bookmark folders, dock and navigation | Complete |
-| 3 | Chrome integration and data integrity: storage, service worker, bookmarks, tabs, history and clipboard | Pending |
+| 3 | Chrome integration and data integrity: storage, service worker, bookmarks, tabs, history and clipboard | Complete |
 | 4 | App and widget completeness: notes, tasks, calculator, favorites, weather, profile, settings, clock, quote and wallpapers | Pending |
 | 5 | UI/UX finish: responsive behavior, themes, accessibility, keyboard and interaction consistency | Pending |
 | 6 | Reliability and security: error handling, performance, permissions, network behavior and dependency review | Pending |
@@ -30,7 +30,28 @@
 
 **Phase 1 exit: COMPLETE.**
 
-NaN
+## Phase 2 — Core dashboard experience
+
+- Verified the centered Weather / Clock / Quote row, search providers and keyboard navigation, bookmark folder management, dock and app navigation.
+- Fixed search-provider listbox focus and keyboard behavior, including wrapped arrow navigation, Enter selection and Escape restoration.
+- Added focused unit coverage for provider-selection wrap-around and aligned the root README with the maintained main source.
+- CI passed on commit d0a74e61204d4306cbb3b875998b876b599b767e (run [#44581797200](https://github.com/ashutoshpalhare/SmritiTab/actions/runs/44581797200)).
+- Chrome-only behavior and real-browser interaction remain release checks for Phases 3 and 8 respectively.
+
+**Phase 2 exit: COMPLETE.**
+
+## Phase 3 — Chrome integration and data integrity
+
+- Audited the MV3 manifest, service worker handoff, storage backend/migration flow, Chrome bookmark synchronization, history access, active-tab lookup and clipboard flows.
+- Fixed web-preview storage isolation: localStorage reads now enumerate only smrititab: keys and corrupt-entry cleanup cannot delete another app's keys.
+- Added a regression test proving foreign malformed and plain-text localStorage entries remain untouched while SmritiTab legacy and current keys remain readable.
+- Fixed stale asynchronous history responses so an older query cannot overwrite newer results or update a closed app.
+- Fixed overlapping bookmark refreshes so an older Chrome API response cannot replace the newest bookmark tree.
+- Preserved the smrititab:v1 namespace, existing permissions, manifest entry points and user data.
+- CI passed on commit a9f15e74d9238998025180563bfaa4d360daacb1 (run [#44583179936](https://github.com/ashutoshpalhare/SmritiTab/actions/runs/44583179936)); typecheck, automated tests, extension build, manifest validation and artifact upload all succeeded.
+- Real Chrome testing of context-menu handoff, keyboard commands, bookmarks, history and clipboard is still required in Phase 8; CI cannot emulate those browser permissions and interactions.
+
+**Phase 3 exit: COMPLETE.**
 
 1. Each phase must include a focused code/documentation change where needed, relevant tests, and a verified GitHub result.
 2. Never claim browser behavior is verified from CI alone.
