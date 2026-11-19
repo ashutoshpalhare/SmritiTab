@@ -9,7 +9,7 @@
 | Phase | Scope | Status |
 |---|---|---|
 | 1 | Baseline audit, source-of-truth confirmation, scope freeze and completion plan | Complete |
-| 2 | Core dashboard experience: layout, search, bookmark folders, dock and navigation | Pending |
+| 2 | Core dashboard experience: layout, search, bookmark folders, dock and navigation | Complete |
 | 3 | Chrome integration and data integrity: storage, service worker, bookmarks, tabs, history and clipboard | Pending |
 | 4 | App and widget completeness: notes, tasks, calculator, favorites, weather, profile, settings, clock, quote and wallpapers | Pending |
 | 5 | UI/UX finish: responsive behavior, themes, accessibility, keyboard and interaction consistency | Pending |
@@ -30,7 +30,7 @@
 
 **Phase 1 exit: COMPLETE.**
 
-## Completion rules
+NaN
 
 1. Each phase must include a focused code/documentation change where needed, relevant tests, and a verified GitHub result.
 2. Never claim browser behavior is verified from CI alone.
