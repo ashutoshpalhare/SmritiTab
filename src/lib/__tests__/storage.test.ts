@@ -114,3 +114,52 @@ describe("store", () => {
     expect(StorageKeys.notes.startsWith(STORAGE_NAMESPACE)).toBe(true);
   });
 });
+
+
+describe("localStorage backend isolation", () => {
+  it("only reads and cleans up keys owned by SmritiTab", async () => {
+    const values = new Map<string, string>([
+      [StorageKeys.notes, JSON.stringify([{ id: "owned" }])],
+      ["smrititab:legacy", JSON.stringify([{ id: "legacy" }])],
+      ["another-app:settings", "{not json"],
+      ["unrelated:cache", "plain text"],
+    ]);
+    const localStorageMock = {
+      get length() {
+        return values.size;
+      },
+      key(index: number) {
+        return Array.from(values.keys())[index] ?? null;
+      },
+      getItem(key: string) {
+        return values.get(key) ?? null;
+      },
+      setItem(key: string, value: string) {
+        values.set(key, value);
+      },
+      removeItem(key: string) {
+        values.delete(key);
+      },
+    };
+    const originalWindow = Object.getOwnPropertyDescriptor(globalThis, "window");
+    Object.defineProperty(globalThis, "window", {
+      configurable: true,
+      value: { localStorage: localStorageMock },
+    });
+
+    try {
+      const { localStorageBackend } = await import("../storage");
+      const result = await localStorageBackend.get(null);
+      expect(result[StorageKeys.notes]).toEqual([{ id: "owned" }]);
+      expect(result["smrititab:legacy"]).toEqual([{ id: "legacy" }]);
+      expect(values.has("another-app:settings")).toBe(true);
+      expect(values.has("unrelated:cache")).toBe(true);
+    } finally {
+      if (originalWindow) {
+        Object.defineProperty(globalThis, "window", originalWindow);
+      } else {
+        Reflect.deleteProperty(globalThis, "window");
+      }
+    }
+  });
+});
