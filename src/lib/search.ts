@@ -90,6 +90,14 @@ export function providerIcon(id: SearchEngineId | string): string {
 }
 
 /** Cycles to the next provider (used by the engine dropdown). */
+/** Wraps keyboard selection through the available provider list. */
+export function moveProviderSelection(index: number, direction: 1 | -1): number {
+  const count = SEARCH_PROVIDERS.length;
+  if (count === 0) return 0;
+  return (index + direction + count) % count;
+}
+
+/** Cycles to the next provider (used by the engine dropdown). */
 export function nextProviderId(id: SearchEngineId): SearchEngineId {
   const index = SEARCH_PROVIDERS.findIndex((provider) => provider.id === id);
   if (index === -1) return SEARCH_PROVIDERS[0].id;
