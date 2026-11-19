@@ -11,7 +11,7 @@
 | 1 | Baseline audit, source-of-truth confirmation, scope freeze and completion plan | Complete |
 | 2 | Core dashboard experience: layout, search, bookmark folders, dock and navigation | Complete |
 | 3 | Chrome integration and data integrity: storage, service worker, bookmarks, tabs, history and clipboard | Complete |
-| 4 | App and widget completeness: notes, tasks, calculator, favorites, weather, profile, settings, clock, quote and wallpapers | Pending |
+| 4 | App and widget completeness: notes, tasks, calculator, favorites, weather, profile, settings, clock, quote and wallpapers | Complete |
 | 5 | UI/UX finish: responsive behavior, themes, accessibility, keyboard and interaction consistency | Pending |
 | 6 | Reliability and security: error handling, performance, permissions, network behavior and dependency review | Pending |
 | 7 | Product delivery: landing page, README, architecture/build/testing docs, screenshots and install/release instructions | Pending |
@@ -52,6 +52,19 @@
 - Real Chrome testing of context-menu handoff, keyboard commands, bookmarks, history and clipboard is still required in Phase 8; CI cannot emulate those browser permissions and interactions.
 
 **Phase 3 exit: COMPLETE.**
+
+## Phase 4 — App and widget completeness
+
+- Audited the Notes, Tasks, Calculator, Favorites, Weather, Profile and Settings apps, plus dashboard Clock / Weather / Quote widgets and wallpaper selection/loading.
+- Fixed weather request races: older refreshes and older city lookups can no longer overwrite the latest selected location or its forecast.
+- Fixed Weather details feedback so an unsuccessful city lookup is visible even while the previous forecast remains on screen.
+- Made the daily quote deterministic by local calendar date, so new tabs show the same starting quote for the day while the refresh control can still cycle to another quote.
+- Added unit coverage for same-day quote stability, next-day rotation and the empty-list fallback.
+- Existing note/task persistence, calculator evaluation, favorites validation, profile editing, settings controls and wallpaper asset checks remain covered by the current implementation and test suite.
+- CI passed on commit c5e59aaacd2657b38da570378c5710a467163d7b (run [#44586383130](https://github.com/ashutoshpalhare/SmritiTab)); typecheck, tests, extension build, manifest validation and artifact upload succeeded.
+- Actual UI/browser verification remains part of Phase 8; no Chrome browser QA is claimed from CI.
+
+**Phase 4 exit: COMPLETE.**
 
 1. Each phase must include a focused code/documentation change where needed, relevant tests, and a verified GitHub result.
 2. Never claim browser behavior is verified from CI alone.
