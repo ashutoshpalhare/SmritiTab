@@ -89,7 +89,6 @@ export function providerIcon(id: SearchEngineId | string): string {
   return `data:image/svg+xml;utf8,${encodeURIComponent(svg.replace(/\n/g, ""))}`;
 }
 
-/** Cycles to the next provider (used by the engine dropdown). */
 /** Wraps keyboard selection through the available provider list. */
 export function moveProviderSelection(index: number, direction: 1 | -1): number {
   const count = SEARCH_PROVIDERS.length;
