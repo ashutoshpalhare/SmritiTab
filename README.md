@@ -6,7 +6,7 @@ SmritiTab brings search, bookmarks, notes, tasks, history, clipboard, calculator
 
 ## Current source architecture
 
-The React/Vite source candidate is maintained in `React-Vite-source-muse`:
+The maintained React/Vite source of truth is the repository's `main` branch:
 
 - React 19 + TypeScript
 - Vite 7 + Tailwind CSS 4
@@ -15,7 +15,7 @@ The React/Vite source candidate is maintained in `React-Vite-source-muse`:
 - Open-Meteo for weather; no application backend, analytics or telemetry
 - Local wallpaper assets are bundled with the extension; optional remote wallpaper choices are loaded only when selected
 
-The previous `main` runtime hardening, permission audit, accessibility work and release documentation have been retained in this branch. The original runtime audit documents the pre-source bundle; it is historical compatibility evidence, not the React build architecture.
+The React/Vite source was merged into `main`. Historical runtime audit documents describe the earlier bundled implementation and remain compatibility evidence; they are not the current build architecture.
 
 ## Features
 
