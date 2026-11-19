@@ -88,20 +88,26 @@ export const localStorageBackend: StorageBackend = {
   name: "local",
   async get(keys) {
     const result: Record<string, unknown> = {};
+    // SmritiTab shares an origin with the surrounding page in web-preview
+    // mode. Never inspect or mutate another app's localStorage entries.
     const names =
       keys === null
         ? Array.from({ length: window.localStorage.length }, (_, index) =>
             window.localStorage.key(index),
-          ).filter((key): key is string => typeof key === "string")
-        : keys;
+          ).filter(
+            (key): key is string =>
+              typeof key === "string" && key.startsWith("smrititab:"),
+          )
+        : keys.filter((key) => key.startsWith("smrititab:"));
     for (const key of names) {
       const raw = window.localStorage.getItem(key);
       if (raw !== null) {
         try {
           result[key] = JSON.parse(raw) as unknown;
         } catch {
-          // Corrupt entry: drop it instead of poisoning the whole slice.
-          window.localStorage.removeItem(key);
+          // Only discard corrupt data owned by SmritiTab. Foreign keys are
+          // never requested above and must never be cleaned up by this store.
+          if (key.startsWith("smrititab:")) window.localStorage.removeItem(key);
         }
       }
     }
