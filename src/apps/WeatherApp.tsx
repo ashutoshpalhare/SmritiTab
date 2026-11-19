@@ -127,6 +127,12 @@ export function WeatherApp() {
           </>
         ) : null}
 
+        {weather.error && !weather.stale && weather.status !== "error" ? (
+          <p role="alert" className="mt-3 rounded-xl bg-rose-500/10 px-3 py-2 text-xs text-rose-600 dark:text-rose-300">
+            {weather.error}
+          </p>
+        ) : null}
+
         {weather.status === "error" && weather.error ? (
           <ErrorState
             title="Weather is unavailable"
