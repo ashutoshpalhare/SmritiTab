@@ -5,6 +5,7 @@ import {
   buildSearchUrl,
   getProvider,
   nextProviderId,
+  moveProviderSelection,
   providerForKeyword,
   providerIcon,
 } from "../search";
@@ -57,6 +58,13 @@ describe("search providers", () => {
   it("cycles through providers", () => {
     expect(nextProviderId("google")).toBe("duckduckgo");
     expect(nextProviderId("perplexity")).toBe("google");
+  });
+
+  it("wraps keyboard selection in both directions", () => {
+    expect(moveProviderSelection(0, -1)).toBe(SEARCH_PROVIDERS.length - 1);
+    expect(moveProviderSelection(SEARCH_PROVIDERS.length - 1, 1)).toBe(0);
+    expect(moveProviderSelection(2, 1)).toBe(3);
+    expect(moveProviderSelection(2, -1)).toBe(1);
   });
 
   it("resolves providers by keyword", () => {
