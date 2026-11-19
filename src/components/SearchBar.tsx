@@ -201,6 +201,7 @@ export function SearchBar({ onNavigate }: SearchBarProps) {
             type="button"
             aria-haspopup="listbox"
             aria-expanded={menuOpen}
+            aria-controls="search-engine-listbox"
             aria-label={`Search engine: ${provider.label}. Change search engine`}
             onClick={() => {
               setMenuOpen((open) => !open);
@@ -255,6 +256,7 @@ export function SearchBar({ onNavigate }: SearchBarProps) {
       {menuOpen ? (
         <div
           ref={menuRef}
+          id="search-engine-listbox"
           role="listbox"
           aria-label="Search engines"
           aria-activedescendant={`search-provider-${providers[activeIndex]?.id ?? provider.id}`}
