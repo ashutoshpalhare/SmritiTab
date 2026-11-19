@@ -63,6 +63,7 @@ export function useChromeBookmarks(): ChromeBookmarksController {
   const [error, setError] = useState<string | null>(null);
   const mounted = useRef(true);
   const reloadTimer = useRef<number | null>(null);
+  const refreshSequence = useRef(0);
 
   useEffect(() => {
     mounted.current = true;
@@ -77,14 +78,15 @@ export function useChromeBookmarks(): ChromeBookmarksController {
       setStatus("unsupported");
       return;
     }
+    const requestId = ++refreshSequence.current;
     try {
       const result = await getBookmarkTree();
-      if (!mounted.current) return;
+      if (!mounted.current || requestId !== refreshSequence.current) return;
       setTree(result);
       setStatus("ready");
       setError(null);
     } catch (caught) {
-      if (!mounted.current) return;
+      if (!mounted.current || requestId !== refreshSequence.current) return;
       setStatus("error");
       setError(
         caught instanceof ChromeApiError
