@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useClock } from "../hooks/useClock";
-import { QUOTES } from "../lib/quotes";
+import { getDailyQuoteIndex, QUOTES } from "../lib/quotes";
 import { formatClock, greetingFor } from "../lib/utils";
 import { describeWeather, formatTemperature } from "../lib/weather";
 import { useApp } from "../state/app-state";
@@ -98,7 +98,7 @@ function WeatherWidget() {
 }
 
 function QuoteWidget() {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(() => getDailyQuoteIndex(QUOTES));
   const quote = QUOTES.length > 0 ? QUOTES[index % QUOTES.length] : { text: "Make space for what matters.", author: "SmritiTab" };
 
   return (
