@@ -40,6 +40,8 @@ export function useWeather(): WeatherController {
   const locationRef = useRef<GeocodeResult | null>(null);
   const locationLoaded = useRef(false);
   const mounted = useRef(true);
+  const requestSequence = useRef(0);
+  const citySequence = useRef(0);
 
   useEffect(() => {
     mounted.current = true;
@@ -80,23 +82,25 @@ export function useWeather(): WeatherController {
   }, []);
 
   const refresh = useCallback(async () => {
+    const requestId = ++requestSequence.current;
     setStatus("loading");
     setError(null);
     try {
       const place = await resolveLocation();
+      if (!mounted.current || requestId !== requestSequence.current) return;
       const reading = await fetchWeather({
         latitude: place.latitude,
         longitude: place.longitude,
         city: place.name,
       });
-      if (!mounted.current) return;
+      if (!mounted.current || requestId !== requestSequence.current) return;
       setSnapshot(reading);
       setStale(false);
       setStatus("ready");
       await cacheWeather(reading);
     } catch (caught) {
       const cached = await loadCachedWeather();
-      if (!mounted.current) return;
+      if (!mounted.current || requestId !== requestSequence.current) return;
       if (cached) {
         setSnapshot(cached);
         setStale(true);
@@ -125,8 +129,10 @@ export function useWeather(): WeatherController {
     async (city: string) => {
       const query = city.trim();
       if (!query) return false;
+      const cityRequestId = ++citySequence.current;
       try {
         const found = await geocodeCity(query);
+        if (!mounted.current || cityRequestId !== citySequence.current) return false;
         if (!found) {
           setError(`No place called “${query}” was found.`);
           return false;
@@ -134,10 +140,13 @@ export function useWeather(): WeatherController {
         locationRef.current = found;
         setLocation(found);
         await store.write(StorageKeys.location, { ...found, updatedAt: Date.now() });
+        if (!mounted.current || cityRequestId !== citySequence.current) return false;
         await refresh();
         return true;
       } catch (caught) {
-        setError(caught instanceof Error ? caught.message : "Could not look up that place.");
+        if (mounted.current && cityRequestId === citySequence.current) {
+          setError(caught instanceof Error ? caught.message : "Could not look up that place.");
+        }
         return false;
       }
     },
