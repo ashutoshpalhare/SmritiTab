@@ -1,30 +1,26 @@
-# Source branch reconciliation
+# Source branch reconciliation — historical record
 
-## Why this branch exists
+This document records how the React/Vite source was brought into the original SmritiTab repository. It is retained for project history, not as current branch-selection instructions.
 
-The original `main` branch contained a minified dashboard runtime without the original React/Vite source. The React/Vite source was uploaded separately to `React-Vite-source-muse` and is maintained as the readable source candidate.
+## Current source of truth
 
-## Main-branch work retained
+The React/Vite implementation was merged into the repository's `main` branch. Continue all ordinary maintenance, testing, documentation and release preparation from `main`.
 
-The source branch preserves the work completed on `main` before the source upload:
+The branch `React-Vite-source-muse` is a historical source-upload branch, not the current maintained source-of-truth branch. Do not switch to it simply because older notes below mention it.
 
-- Manifest V3 permissions and background-worker hardening
-- The `smrititab:v1` storage namespace and pending action handoff
-- Runtime audit and persisted-key compatibility documentation
+## Compatibility constraints preserved
+
+- Manifest V3 permissions and background-worker handoff
+- The `smrititab:v1` storage namespace and pending-action keys
+- Runtime audit and persisted-key compatibility records
 - Accessibility and release-readiness documentation
-- Repository formatting conventions and CI quality gates
+- The dashboard widget header in normal document flow above search
+- Offline packaging of the local wallpaper catalogue
 
-The original minified bundle is not copied over the React/Vite source. Historical runtime documents remain available to explain the original permission, storage and behavior constraints.
+## Archived fork separation
 
-## Source branch safeguards
+The branch `archive/alex302paul-smrititab-main` is a separate snapshot and is excluded from the original project's normal maintenance. Do not merge or import its changes without an explicit, separately reviewed request.
 
-- The extension manifest declares the existing bookmarks, history, clipboard, context menu, tab and tab-group capabilities.
-- The service worker uses the hardened lifecycle registration behavior from the original main branch.
-- The source build emits a separate, loadable `dist-extension/` directory.
-- The widget header is in normal dashboard flow, above search; it is not an absolute floating layer.
-- The wallpaper generator packages the complete local catalogue offline.
-- CI validates typecheck, tests, build, manifest permissions, icon PNG dimensions and wallpaper assets.
+## Historical merge policy
 
-## Merge policy
-
-Keep this branch as the source candidate until its unpacked build has been smoke-tested in Chrome. Merge it into `main` only after reviewing the complete PR diff and confirming existing profile data and Chrome API features remain available. Never delete the original runtime audit or clear user storage to force compatibility.
+The original branch reconciliation was gated on real Chrome testing because CI cannot prove New Tab override behavior, Chrome API permissions, profile data compatibility or visual behavior. The current project completion plan tracks the remaining owner-side browser QA.
