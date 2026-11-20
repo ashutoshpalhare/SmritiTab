@@ -52,7 +52,7 @@ export function toAbsoluteUrl(value: string): string {
     ) {
       return "";
     }
-    return parsed.href;
+    return parsed.pathname === "/" && !parsed.search && !parsed.hash\n      ? parsed.origin\n      : parsed.href;
   } catch {
     return "";
   }
