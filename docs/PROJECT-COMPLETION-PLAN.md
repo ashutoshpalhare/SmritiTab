@@ -15,7 +15,7 @@
 | 5 | UI/UX finish: responsive behavior, themes, accessibility, keyboard and interaction consistency | Complete |
 | 6 | Reliability and security: error handling, performance, permissions, network behavior and dependency review | Complete |
 | 7 | Product delivery: landing page, README, architecture/build/testing docs, screenshots and install/release instructions | Complete* |
-| 8 | Final verification, Chrome smoke test, CI, release decision, repository cleanup and project closure | Pending |
+| 8 | Final verification, CI, release decision, repository review and project closure | Complete* (owner-side Chrome QA and live Pages check pending) |
 
 ## Phase 1 — Baseline audit
 
@@ -106,6 +106,30 @@
 - No extension runtime code, manifest permissions or stored data were changed in this phase. A new extension build is therefore not required to validate the documentation edits. Live GitHub Pages deployment verification and real screenshots are deferred to Phase 8; screenshots will be captured only after the current extension build has passed Chrome smoke testing.
 
 **Phase 7 exit: COMPLETE for documentation and product-page source.** Live deployment, genuine screenshots and Chrome QA remain Phase 8 release checks.
+
+## Phase 8 — Final verification and project closure
+
+- Reconfirmed the repository is public, not archived, and uses `main` as its default branch. The latest repository commit is `3fd8251fdb1ab8de805eb6e6e6a024e64e16a281` (Phase 7 completion record, 2026-11-20).
+- Rechecked the maintained README, architecture, installation guide, release-readiness checklist, testing guide, manifest, package scripts and landing-page source. The build commands and output folder agree: `npm run build:extension` generates `dist-extension/`, followed by `npm run validate:manifest`.
+- Verified the final code-change CI run `#44765718185` completed successfully on code commit `f75b7d9a2f315ec16336e2972f0d3b4cf27a3139`. Its artifact `smrititab-extension` exists, is not expired, and expires 2026-11-27 15:41 UTC. The later Phase 7 commits changed documentation and the static landing page only; they did not change extension runtime code or the manifest.
+- Verified the follow-up CI run `#44765837317` completed successfully. All job steps passed: dependency audit, typecheck, automated tests, extension build, manifest validation and artifact upload. Its artifact is also available until 2026-11-27 15:41 UTC.
+- Confirmed the current open PR #3 changes only `assets/dashboard.bundle.js` and is unrelated to the maintained React/Vite source. It was deliberately not merged or closed; it remains outside the OG project scope pending the owner's separate decision.
+- Preserved all existing branches, including `archive/alex302paul-smrititab-main`, and made no destructive cleanup, storage reset, release tag or public release declaration.
+- The live GitHub Pages URL could not be independently fetched in this verification environment. The committed `website/index.html` and supporting assets are present, but the deployed page's HTTP response and latest deployment status remain unverified.
+- Real Chrome Load-unpacked QA cannot be executed through the repository connector. The checklist in `docs/release-readiness.md` remains an owner-side acceptance gate, especially for New Tab override, Chrome permissions, storage preservation, responsive layout, weather/wallpapers and console errors.
+- No fabricated screenshots were added. Capture genuine product screenshots after the Chrome smoke test, then add them to the landing page/README if desired.
+
+**Phase 8 exit: COMPLETE for repository, source, CI and scope closure.** The OG development plan is closed at 8/8 phases. **Public release readiness remains BLOCKED** until the owner confirms the real Chrome smoke test and the live GitHub Pages deployment is checked.
+
+### Final owner-side acceptance checklist
+
+- [ ] Load the current `dist-extension/` build in Chrome via `chrome://extensions`.
+- [ ] Confirm SmritiTab replaces New Tab and Chrome shows no extension errors.
+- [ ] Confirm existing `smrititab:v1` notes, tasks, bookmarks/settings and other data remain intact.
+- [ ] Test dashboard widgets, search, bookmark manager, dock, apps, themes and wallpapers.
+- [ ] Check desktop and narrow viewport layout; inspect DevTools console.
+- [ ] Open the live [GitHub Pages landing page](https://ashutoshpalhare.github.io/SmritiTab/) and confirm the current content loads.
+- [ ] Capture genuine screenshots only after the above checks pass.
 
 1. Each phase must include a focused code/documentation change where needed, relevant tests, and a verified GitHub result.
 2. Never claim browser behavior is verified from CI alone.
