@@ -8,6 +8,18 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "../../../");
 const read = (path: string) => readFileSync(join(root, path), "utf8");
 
 describe("fixed dashboard header", () => {
+  it("uses the full available grid width for any single visible widget", () => {
+    expect(getWidgetGridClass(true, false, false)).toBe("grid-cols-1");
+    expect(getWidgetGridClass(false, true, false)).toBe("grid-cols-1");
+    expect(getWidgetGridClass(false, false, true)).toBe("grid-cols-1");
+  });
+
+  it("keeps the intended two- and three-widget proportions", () => {
+    expect(getWidgetGridClass(true, true, false)).toBe("grid-cols-[minmax(0,0.78fr)_minmax(0,2fr)]");
+    expect(getWidgetGridClass(false, true, true)).toBe("grid-cols-[minmax(0,2fr)_minmax(0,0.78fr)]");
+    expect(getWidgetGridClass(true, false, true)).toBe("grid-cols-2");
+    expect(getWidgetGridClass(true, true, true)).toBe("grid-cols-[minmax(0,0.78fr)_minmax(0,2fr)_minmax(0,0.78fr)]");
+  });
   it("uses the weather / hero clock / quote desktop grid", () => {
     const widgets = read("src/components/Widgets.tsx");
     expect(widgets).toContain("grid-cols-[minmax(0,0.78fr)_minmax(0,2fr)_minmax(0,0.78fr)]");
