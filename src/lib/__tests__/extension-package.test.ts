@@ -35,7 +35,12 @@ describe("Chrome MV3 package contract", () => {
     }
   });
 
-  it("declares the actual external wallpaper origin without the stale Unsplash host", () => {\n    expect(manifest.host_permissions).toContain("https://picsum.photos/*");\n    expect(manifest.host_permissions).not.toContain("https://images.unsplash.com/*");\n  });\n\n  it("ships valid PNG icons at every declared size", () => {
+  it("declares the actual external wallpaper origin without the stale Unsplash host", () => {
+    expect(manifest.host_permissions).toContain("https://picsum.photos/*");
+    expect(manifest.host_permissions).not.toContain("https://images.unsplash.com/*");
+  });
+
+  it("ships valid PNG icons at every declared size", () => {
     for (const size of ["16", "32", "48", "128"]) {
       const file = manifest.icons?.[size];
       expect(file).toBeTruthy();
