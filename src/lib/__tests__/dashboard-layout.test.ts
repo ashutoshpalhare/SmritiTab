@@ -22,7 +22,8 @@ describe("fixed dashboard header", () => {
   });
   it("uses the weather / hero clock / quote desktop grid", () => {
     const widgets = read("src/components/Widgets.tsx");
-    expect(widgets).toContain("grid-cols-[minmax(0,0.78fr)_minmax(0,2fr)_minmax(0,0.78fr)]");
+    const layout = read("src/lib/dashboard-layout.ts");
+    expect(layout).toContain("grid-cols-[minmax(0,0.78fr)_minmax(0,2fr)_minmax(0,0.78fr)]");
     expect(widgets).toContain("widget-clock-panel");
     expect(widgets).toContain("{period}");
     expect(widgets).toContain("text-orange-500");
