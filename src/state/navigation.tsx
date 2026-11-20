@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, type ReactNode } from "react";
 import { openUrl as openUrlInBrowser } from "../lib/chrome";
+import { toAbsoluteUrl } from "../lib/utils";
 import { useApp } from "./app-state";
 import { useWindows } from "./window-manager";
 
@@ -18,13 +19,14 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
 
   const openUrl = useCallback(
     (url: string) => {
-      if (!url) return;
+      const safeUrl = toAbsoluteUrl(url);
+      if (!safeUrl) return;
       if (settings.openInNewTab) {
-        void openUrlInBrowser(url, true).catch(() => {
-          window.open(url, "_blank", "noopener,noreferrer");
+        void openUrlInBrowser(safeUrl, true).catch(() => {
+          window.open(safeUrl, "_blank", "noopener,noreferrer");
         });
       } else {
-        window.location.href = url;
+        window.location.href = safeUrl;
       }
     },
     [settings.openInNewTab],
