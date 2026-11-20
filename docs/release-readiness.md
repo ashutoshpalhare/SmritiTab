@@ -1,33 +1,37 @@
 # Release readiness
 
 **Manifest version:** `1.0.0` (unchanged)  
-**Source candidate:** `React-Vite-source-muse`
+**Maintained source:** `main`  
+**Public versioned release:** Not published by this project-completion workflow
 
-## Original main-branch runtime
+## Current source
 
-The original minified runtime received the Phase 1–5 hardening, documentation, CI and owner-side Chrome checks. The owner's confirmation that manual testing is complete applies to that original runtime.
+The React/Vite source is already merged into `main` and is the maintained source of truth. The older `React-Vite-source-muse` branch is historical source-upload context, not a separate release candidate.
 
-## React/Vite source candidate
+The original minified runtime's owner-side testing does not substitute for testing the current React/Vite package. The current source must be tested from a freshly generated `dist-extension/` build.
 
-The React/Vite tree is a separate rebuilt implementation. Passing its typecheck, Vitest suite, build and manifest validation is necessary but does not prove that the generated package works in a real Chrome profile.
+## Required Chrome smoke test
 
-Before merging this source candidate into `main` or publishing a versioned release:
+Before declaring a public release ready:
 
+- [ ] Run `npm ci`, typecheck, tests, extension build and manifest validation from current `main`.
 - [ ] Load `dist-extension/` through `chrome://extensions` → Developer mode → Load unpacked.
 - [ ] Confirm the New Tab override loads without extension errors or console exceptions.
-- [ ] Confirm the fixed Weather | Clock | Quote header is above search at desktop and mobile widths.
+- [ ] Confirm the fixed Weather | Clock | Quote header is above search at desktop and narrow/mobile widths.
 - [ ] Test 12/24-hour time, separate AM/PM, greeting, quote refresh and each widget visibility toggle.
-- [ ] Test light, dark and system themes; confirm orange accent selection persists after restart.
-- [ ] Test local wallpaper selection, random-per-tab mode and the optional remote wallpaper entries.
+- [ ] Test light, dark and system themes; confirm theme selection persists after restart.
+- [ ] Test local wallpaper selection, random-per-tab mode and optional remote wallpaper entries.
 - [ ] Test bookmarks, tab groups, history, clipboard, search, notes, tasks, dock, focus mode and settings.
 - [ ] Confirm existing `smrititab:v1` data is preserved and pending search/focus actions still work.
+- [ ] Check Chrome's extension Errors panel and browser console after the smoke test.
 
-Do not clear extension storage to work around a regression. Keep the original main branch and its runtime audit available until this source candidate has passed Chrome QA.
+Do not clear extension storage to work around a regression. Use a test Chrome profile if a clean-profile check is needed.
 
 ## Automated release gate
 
 The source CI must pass:
 
+- Dependency vulnerability audit
 - TypeScript typecheck
 - Vitest regression suite
 - Vite extension build
@@ -37,10 +41,14 @@ The source CI must pass:
 
 Dependency audit findings must be reviewed; do not apply forceful major upgrades blindly.
 
+## Packaging and publication
+
+The Extension CI workflow uploads an unpacked `smrititab-extension` artifact with a 7-day retention window. It is a CI artifact for testing, not a permanent public release package.
+
+No GitHub Release or new version tag is created by this completion workflow. After Chrome QA passes, prepare a versioned ZIP from the validated `dist-extension/` output, review the manifest version and changelog, and publish deliberately. A Chrome Web Store listing must not be implied until one exists.
+
 ## Release decision
 
-**Original runtime:** owner-side QA confirmed complete.  
-**React/Vite source candidate:** awaiting its own real-Chrome smoke test.  
-**Public release:** do not tag or publish until the source candidate is tested and merged deliberately.
-
-No GitHub Release or new version tag is created by this workflow.
+**Source build:** automated checks are tracked by CI.  
+**Real Chrome QA:** remains a manual release gate until owner confirmation.  
+**Public release:** not ready to be declared complete until the smoke-test checklist above passes.
