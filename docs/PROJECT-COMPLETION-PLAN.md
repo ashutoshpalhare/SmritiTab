@@ -13,7 +13,7 @@
 | 3 | Chrome integration and data integrity: storage, service worker, bookmarks, tabs, history and clipboard | Complete |
 | 4 | App and widget completeness: notes, tasks, calculator, favorites, weather, profile, settings, clock, quote and wallpapers | Complete |
 | 5 | UI/UX finish: responsive behavior, themes, accessibility, keyboard and interaction consistency | Complete |
-| 6 | Reliability and security: error handling, performance, permissions, network behavior and dependency review | Pending |
+| 6 | Reliability and security: error handling, performance, permissions, network behavior and dependency review | Complete |
 | 7 | Product delivery: landing page, README, architecture/build/testing docs, screenshots and install/release instructions | Pending |
 | 8 | Final verification, Chrome smoke test, CI, release decision, repository cleanup and project closure | Pending |
 
@@ -77,6 +77,21 @@
 - Responsive appearance still needs a real Chrome visual check at narrow/mobile, tablet and desktop widths in Phase 8; automated layout-contract tests do not replace rendered browser QA.
 
 **Phase 5 exit: COMPLETE.**
+
+## Phase 6 — Reliability and security
+
+- Reviewed the MV3 manifest, host permissions, navigation helper, app navigation fallback, bookmark creation, wallpaper URL resolution, weather network boundary, storage isolation and dependency audit.
+- Hardened URL normalization to allow only valid HTTP/HTTPS destinations, reject executable/non-web schemes (including `javascript:`, `data:`, `file:`, `ftp:` and `chrome:`), reject embedded credentials and malformed addresses, while preserving the existing clean host URL format and local development host support.
+- Applied the same validation before navigation and before the web fallback, so a failed Chrome tab open cannot retry an unsafe original URL.
+- Bookmark creation now validates and normalizes the entered destination before writing it to Chrome bookmarks.
+- Remote wallpaper resolution now accepts HTTPS only; unsupported schemes and protocol-relative external URLs are rejected. Local bundled wallpaper paths remain supported.
+- Corrected the stale wallpaper host permission: the configured remote entries use Picsum, not Unsplash. The manifest and package validator now declare/check the actual Picsum origin while retaining the existing weather and font hosts and all existing Chrome API permissions.
+- Added regression coverage for safe URL normalization, unsupported schemes, embedded credentials, HTTPS-only remote wallpapers and the actual wallpaper host permission.
+- Preserved the `smrititab:v1` storage namespace and existing user data. No broad permission additions, dependency upgrades, telemetry or backend services were introduced.
+- Dependency audit reported 0 vulnerabilities. CI passed on commit f75b7d9a2f315ec16336e2972f0d3b4cf27a3139 (run [#44765718185](https://github.com/ashutoshpalhare/SmritiTab/actions/runs/44765718185)): typecheck, all 11 test files, extension build, all 33 manifest checks and artifact upload succeeded.
+- Real Chrome permission prompts, external wallpaper redirect behavior and runtime navigation remain part of Phase 8 manual smoke testing; no live-browser test is claimed here.
+
+**Phase 6 exit: COMPLETE.**
 
 1. Each phase must include a focused code/documentation change where needed, relevant tests, and a verified GitHub result.
 2. Never claim browser behavior is verified from CI alone.
