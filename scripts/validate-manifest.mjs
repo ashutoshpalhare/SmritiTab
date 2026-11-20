@@ -113,13 +113,13 @@ check(broadHosts.length === 0, "host permissions are limited to specific https o
 const requiredHosts = [
   "https://api.open-meteo.com/*",
   "https://geocoding-api.open-meteo.com/*",
-  "https://images.unsplash.com/*",
+  "https://picsum.photos/*",
   "https://fonts.googleapis.com/*",
   "https://fonts.gstatic.com/*",
 ];
 check(
   requiredHosts.every((host) => (manifest.host_permissions ?? []).includes(host)),
-  "weather, wallpaper and font hosts from the main-branch runtime are retained",
+  "weather, configured Picsum wallpaper and font hosts are retained",
 );
 
 /* The packaged page must not contain inline scripts (MV3 CSP). */
