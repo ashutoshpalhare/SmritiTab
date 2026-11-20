@@ -2,59 +2,69 @@
 
 **A local-first Chrome Manifest V3 New Tab dashboard.**
 
-SmritiTab brings search, bookmarks, notes, tasks, history, clipboard, calculator, weather, favorites and focus mode into a customizable New Tab page.
+SmritiTab brings search, bookmarks, notes, tasks, history, clipboard, calculator, weather, favorites and focus mode into one customisable New Tab workspace.
+
+[Project landing page](https://ashutoshpalhare.github.io/SmritiTab/) · [Source code](https://github.com/ashutoshpalhare/SmritiTab) · [Issues](https://github.com/ashutoshpalhare/SmritiTab/issues)
 
 ## Current source architecture
 
-The maintained React/Vite source of truth is the repository's `main` branch:
+The maintained source of truth is the repository's `main` branch:
 
 - React 19 + TypeScript
 - Vite 7 + Tailwind CSS 4
 - Chrome Manifest V3
 - `chrome.storage.local` for extension persistence, with browser-local fallbacks during web development
 - Open-Meteo for weather; no application backend, analytics or telemetry
-- Local wallpaper assets are bundled with the extension; optional remote wallpaper choices are loaded only when selected
+- Local wallpaper assets bundled with the extension; optional remote wallpaper choices are loaded only when selected
 
-The React/Vite source was merged into `main`. Historical runtime audit documents describe the earlier bundled implementation and remain compatibility evidence; they are not the current build architecture.
+Historical runtime audit and branch-reconciliation documents describe earlier project states and compatibility constraints. They are not instructions to switch to a separate source branch.
 
 ## Features
 
 - Fixed Weather | hero Clock | Quote dashboard header
-- 12/24-hour clock, separate orange AM/PM, date and personalized greeting
+- 12/24-hour clock, separate orange AM/PM, date and personalised greeting
 - Search providers, voice search and keyboard shortcuts
-- Bookmark folders, favorites and browser history
+- Bookmark folders, favourites and browser history
 - Notes, todos, clipboard and calculator apps
 - Dock, right rail, draggable app windows and focus mode
 - Light, dark and system themes
 - Orange/charcoal visual identity with glass surfaces
 - Offline local wallpaper library and optional remote wallpapers
 
-## Run locally
+## Requirements
 
-Requires Node.js 20 or newer.
+- Node.js 20 or newer (CI currently uses Node.js 22)
+- npm
+- Google Chrome or a compatible Chromium browser for unpacked-extension testing
+
+## Install and verify the source
 
 ```sh
+git clone https://github.com/ashutoshpalhare/SmritiTab.git
+cd SmritiTab
 npm ci
 npm run typecheck
-npm run test
+npm test
 npm run build:extension
 npm run validate:manifest
 ```
 
-The unpacked Chrome extension is generated in `dist-extension/`.
+The unpacked extension is generated in `dist-extension/`.
 
 1. Open `chrome://extensions`.
 2. Enable **Developer mode**.
 3. Click **Load unpacked**.
 4. Select the generated `dist-extension/` folder.
-5. Open a new tab.
+5. Open a new tab and inspect the extension's Errors panel and DevTools console.
 
 For the web preview, run `npm run dev`. To create the single-file web build, run `npm run build:web`.
+
+See the complete [installation guide](docs/installation.md) for local builds and CI artifacts.
 
 ## Data compatibility and privacy
 
 - Keep the `smrititab:v1` storage namespace and pending-action keys stable.
-- Existing settings, bookmarks, notes, todos, favorites and other dashboard data must not be cleared as a migration workaround.
+- Existing settings, bookmarks, notes, todos, favourites and other dashboard data must not be cleared as a migration workaround.
 - The extension uses only the Chrome permissions declared in `public/manifest.json`.
 - Weather requests go to Open-Meteo. No SmritiTab backend, telemetry or analytics service is included.
 - The built-in wallpaper library is local. Optional external wallpaper entries require an internet connection when selected.
@@ -73,24 +83,26 @@ public/icons/              16, 32, 48 and 128 px extension icons
 assets/                    Curated local wallpaper sources
 scripts/                   Extension build and manifest validation
 wallpapers.js              Local and optional external wallpaper catalogue
+website/                   GitHub Pages product landing page
 dist-extension/            Generated unpacked extension (not committed)
-docs/                      Architecture, build, QA and historical runtime records
+docs/                      Architecture, build, testing, QA and release docs
 ```
 
 ## Quality checks
 
 GitHub Actions runs:
 
+- Dependency vulnerability audit
 - TypeScript typecheck
 - Vitest unit and regression tests
 - MV3 extension build
 - Manifest, icon, permission, background-worker and wallpaper validation
 
-See [Source build guide](docs/source-build.md), [Branch reconciliation](docs/branch-reconciliation.md), [Architecture](docs/architecture.md), [Testing](docs/testing.md), [Accessibility](docs/accessibility.md) and [Release readiness](docs/release-readiness.md).
+The CI workflow uploads an unpacked extension artifact named `smrititab-extension` (currently retained for 7 days). See [Testing and CI](docs/testing.md).
 
-## Preserved main-branch project history
+## Project status
 
-The Phase 1–5 runtime hardening, compatibility baseline, accessibility and release-readiness records from the previous `main` branch remain under `docs/`. In particular, [runtime audit](docs/runtime-audit.md) and [runtime baseline](docs/runtime-baseline.md) describe the original bundled extension and the data/permission constraints that the source build must respect.
+Automated source checks are part of the delivery gate, not a substitute for testing the extension in Chrome. The React/Vite build still needs the final owner-side Load-unpacked smoke test before a versioned public release is declared ready. See [Release readiness](docs/release-readiness.md) and the [8-phase completion plan](docs/PROJECT-COMPLETION-PLAN.md).
 
 ## License
 
