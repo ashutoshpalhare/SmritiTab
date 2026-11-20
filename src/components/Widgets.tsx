@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useClock } from "../hooks/useClock";
 import { getDailyQuoteIndex, QUOTES } from "../lib/quotes";
+import { getWidgetGridClass } from "../lib/dashboard-layout";
 import { formatClock, greetingFor } from "../lib/utils";
 import { describeWeather, formatTemperature } from "../lib/weather";
 import { useApp } from "../state/app-state";
@@ -138,14 +139,7 @@ export function WidgetLayer() {
 
   if (visibleCount === 0) return null;
 
-  const columns =
-    showWeather && showClock && showQuote
-      ? "grid-cols-[minmax(0,0.78fr)_minmax(0,2fr)_minmax(0,0.78fr)]"
-      : showWeather && showClock
-        ? "grid-cols-[minmax(0,0.78fr)_minmax(0,2fr)]"
-        : showClock && showQuote
-          ? "grid-cols-[minmax(0,2fr)_minmax(0,0.78fr)]"
-          : "grid-cols-2";
+  const columns = getWidgetGridClass(showWeather, showClock, showQuote);
 
   return (
     <section
@@ -156,7 +150,6 @@ export function WidgetLayer() {
         className={cn(
           "dashboard-widget-grid grid items-center gap-3 md:gap-4",
           visibleCount > 1 && "dashboard-widget-grid--multi min-w-[680px] md:min-w-0",
-          visibleCount === 1 && "grid-cols-1",
           columns,
         )}
       >
