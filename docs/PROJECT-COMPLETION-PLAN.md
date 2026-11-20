@@ -12,7 +12,7 @@
 | 2 | Core dashboard experience: layout, search, bookmark folders, dock and navigation | Complete |
 | 3 | Chrome integration and data integrity: storage, service worker, bookmarks, tabs, history and clipboard | Complete |
 | 4 | App and widget completeness: notes, tasks, calculator, favorites, weather, profile, settings, clock, quote and wallpapers | Complete |
-| 5 | UI/UX finish: responsive behavior, themes, accessibility, keyboard and interaction consistency | Pending |
+| 5 | UI/UX finish: responsive behavior, themes, accessibility, keyboard and interaction consistency | Complete |
 | 6 | Reliability and security: error handling, performance, permissions, network behavior and dependency review | Pending |
 | 7 | Product delivery: landing page, README, architecture/build/testing docs, screenshots and install/release instructions | Pending |
 | 8 | Final verification, Chrome smoke test, CI, release decision, repository cleanup and project closure | Pending |
@@ -65,6 +65,18 @@
 - Actual UI/browser verification remains part of Phase 8; no Chrome browser QA is claimed from CI.
 
 **Phase 4 exit: COMPLETE.**
+
+## Phase 5 — UI/UX finish
+
+- Audited the dashboard widget strip, responsive overflow behavior, light/dark/system theme application, orange focus visibility, reduced-motion and forced-colors styles, search-provider keyboard interaction, shared controls and modal focus handling.
+- Found a layout defect when exactly one dashboard widget was enabled: the fallback grid still declared two columns, leaving the lone widget at half width. This affected Weather-only, Clock-only and Quote-only configurations.
+- Extracted widget-grid selection into `src/lib/dashboard-layout.ts` and fixed all single-widget states to use one full-width column while preserving the existing Weather / hero Clock / Quote proportions for two- and three-widget states.
+- Added focused tests for every one-, two- and three-widget visibility combination and retained checks for mobile horizontal scrolling, reduced motion, forced-colors focus and widget-before-search ordering.
+- Preserved the orange/black identity, the fixed horizontal widget strip, clock hierarchy and existing theme settings; no broad visual redesign or data migration was introduced.
+- CI passed on commit 7e1cc1ed9b2c95df5f7e68ee6ebebe319e75bba5 (run [#44762720882](https://github.com/ashutoshpalhare/SmritiTab/actions/runs/44762720882)); dependency audit, typecheck, automated tests, extension build, manifest validation and artifact upload succeeded.
+- Responsive appearance still needs a real Chrome visual check at narrow/mobile, tablet and desktop widths in Phase 8; automated layout-contract tests do not replace rendered browser QA.
+
+**Phase 5 exit: COMPLETE.**
 
 1. Each phase must include a focused code/documentation change where needed, relevant tests, and a verified GitHub result.
 2. Never claim browser behavior is verified from CI alone.
