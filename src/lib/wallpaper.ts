@@ -53,7 +53,8 @@ export function pickRandomWallpaper(
 
 /** Resolves an entry to a loadable URL (external entries are already absolute). */
 export function resolveWallpaperUrl(entry: WallpaperEntry, baseUrl: string): string {
-  if (/^https?:\/\//i.test(entry.src)) return entry.src;
+  if (/^https:\/\//i.test(entry.src)) return entry.src;
+  if (/^[a-z][a-z0-9+.-]*:/i.test(entry.src) || entry.src.startsWith("//")) return "";
   const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
   return `${base}${entry.src.replace(/^\//, "")}`;
 }
