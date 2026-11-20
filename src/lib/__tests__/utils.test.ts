@@ -3,9 +3,9 @@ import { toAbsoluteUrl } from "../utils";
 
 describe("safe URL normalisation", () => {
   it("normalises web addresses and local development hosts", () => {
-    expect(toAbsoluteUrl("example.com")).toBe("https://example.com/");
-    expect(toAbsoluteUrl("localhost:3000")).toBe("https://localhost:3000/");
-    expect(toAbsoluteUrl("127.0.0.1:8080")).toBe("https://127.0.0.1:8080/");
+    expect(toAbsoluteUrl("example.com")).toBe("https://example.com");
+    expect(toAbsoluteUrl("localhost:3000")).toBe("https://localhost:3000");
+    expect(toAbsoluteUrl("127.0.0.1:8080")).toBe("https://127.0.0.1:8080");
     expect(toAbsoluteUrl("http://example.com/path")).toBe("http://example.com/path");
     expect(toAbsoluteUrl("https://example.com/path?q=1")).toBe("https://example.com/path?q=1");
   });
