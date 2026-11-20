@@ -14,7 +14,7 @@
 | 4 | App and widget completeness: notes, tasks, calculator, favorites, weather, profile, settings, clock, quote and wallpapers | Complete |
 | 5 | UI/UX finish: responsive behavior, themes, accessibility, keyboard and interaction consistency | Complete |
 | 6 | Reliability and security: error handling, performance, permissions, network behavior and dependency review | Complete |
-| 7 | Product delivery: landing page, README, architecture/build/testing docs, screenshots and install/release instructions | Pending |
+| 7 | Product delivery: landing page, README, architecture/build/testing docs, screenshots and install/release instructions | Complete* |
 | 8 | Final verification, Chrome smoke test, CI, release decision, repository cleanup and project closure | Pending |
 
 ## Phase 1 — Baseline audit
@@ -92,6 +92,20 @@
 - Real Chrome permission prompts, external wallpaper redirect behavior and runtime navigation remain part of Phase 8 manual smoke testing; no live-browser test is claimed here.
 
 **Phase 6 exit: COMPLETE.**
+
+
+## Phase 7 — Product delivery
+
+- Updated the root README to identify `main` as the maintained source of truth, document the current stack/features, add a clean clone/build/test/Load-unpacked path, and link the product landing page and installation guide.
+- Added `docs/installation.md` with source-build instructions, the exact Chrome Load unpacked flow, CI artifact retrieval, the 7-day artifact expiry, profile/data safety and troubleshooting.
+- Aligned `docs/architecture.md`, `docs/branch-reconciliation.md` and `docs/release-readiness.md` with the current merged `main` source. Older source-branch language is now explicitly historical; the Alex fork archive remains separate.
+- Updated `docs/testing.md` to distinguish automated CI checks from real Chrome QA and to document the CI artifact retention boundary.
+- Updated `website/index.html` so its primary action points to the install guide, installation steps match the actual `dist-extension/` output, and the page does not imply that a permanent release ZIP or Chrome Web Store listing already exists. Existing responsive styling, CDN-enhanced interactions, light/dark website theme and Ashutosh Palhare attribution are retained.
+- Re-read the committed README and landing-page source after updates; verified that the install-guide links exist and the obsolete “Explore releases” hero action is gone.
+- Changes were committed directly to `main`: `1e2180c5` (README), `304a011b` (architecture), `3c2ccbc9` (historical branch record), `2706f748` (release readiness), `aae05f66` (installation guide), `3443343e` (landing page), and `648e00f7` (testing docs).
+- No extension runtime code, manifest permissions or stored data were changed in this phase. A new extension build is therefore not required to validate the documentation edits. Live GitHub Pages deployment verification and real screenshots are deferred to Phase 8; screenshots will be captured only after the current extension build has passed Chrome smoke testing.
+
+**Phase 7 exit: COMPLETE for documentation and product-page source.** Live deployment, genuine screenshots and Chrome QA remain Phase 8 release checks.
 
 1. Each phase must include a focused code/documentation change where needed, relevant tests, and a verified GitHub result.
 2. Never claim browser behavior is verified from CI alone.
