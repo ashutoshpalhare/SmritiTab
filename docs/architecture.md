@@ -1,8 +1,8 @@
 # Architecture
 
-## Current React/Vite source candidate
+## Current source of truth
 
-SmritiTab is a Chrome Manifest V3 New Tab extension built from React 19, TypeScript, Vite 7 and Tailwind CSS 4.
+The maintained SmritiTab source is the repository's `main` branch. It is a Chrome Manifest V3 New Tab extension built from React 19, TypeScript, Vite 7 and Tailwind CSS 4.
 
 ```text
 src/
@@ -20,6 +20,7 @@ public/
 
 assets/             # Curated local wallpaper source images
 scripts/            # Extension packaging and manifest validation
+website/            # Static GitHub Pages product landing page
 wallpapers.js       # Local and optional external wallpaper catalogue
 ```
 
@@ -31,7 +32,7 @@ The application dock, right rail and app windows remain separate dashboard layer
 
 ## State and persistence
 
-- `AppProvider` hydrates and persists settings, profile, categories, apps, favorites, notes, todos, widget preferences, dock and clipboard.
+- `AppProvider` hydrates and persists settings, profile, categories, apps, favourites, notes, todos, widget preferences, dock and clipboard.
 - `WindowProvider` owns app-window state.
 - `WeatherProvider` owns weather status and readings.
 - `NavigationProvider` routes external URLs and internal apps.
@@ -43,12 +44,12 @@ The storage namespace remains `smrititab:v1`. Pending background-worker values u
 
 The MV3 service worker creates the selection-search context menu and hands keyboard/context-menu actions to the dashboard through `chrome.storage.local`. Chrome API access is isolated in the storage and Chrome adapter modules.
 
-The manifest retains storage, bookmarks, history, clipboard, context-menu, tabs and tab-groups permissions, with explicit HTTPS hosts for Open-Meteo, Unsplash and Google Fonts.
+The manifest retains the project's bookmarks, history, clipboard, context-menu, tabs and tab-groups capabilities. Review `public/manifest.json` as the authoritative permission list; host permissions are intentionally limited to the external services/assets the current implementation uses.
 
 ## Network and privacy
 
-No SmritiTab application backend, analytics or telemetry is included. Weather uses Open-Meteo. The wallpaper catalogue works locally; optional external wallpaper entries are only fetched when selected.
+No SmritiTab application backend, analytics or telemetry is included. Weather uses Open-Meteo. The wallpaper catalogue works locally; optional external wallpaper entries are only fetched when selected. The current remote wallpaper catalogue uses Picsum; do not infer hosts from historical notes.
 
-## Historical runtime baseline
+## Historical project records
 
-The original main-branch minified bundle and its audit are preserved in [runtime audit](runtime-audit.md) and [runtime baseline](runtime-baseline.md). Those documents describe the earlier production runtime and the constraints used when reconstructing this readable source tree; they are not the current build instructions.
+The original bundled runtime and source-branch reconciliation are preserved in [runtime audit](runtime-audit.md), [runtime baseline](runtime-baseline.md) and [branch reconciliation](branch-reconciliation.md). Those records explain project history and compatibility constraints; they do not override the current `main` source tree or its build instructions.
