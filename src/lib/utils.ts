@@ -34,8 +34,28 @@ export function isLikelyUrl(value: string): boolean {
 export function toAbsoluteUrl(value: string): string {
   const trimmed = value.trim();
   if (!trimmed) return "";
-  if (/^[a-z][a-z0-9+.-]*:\/\//i.test(trimmed)) return trimmed;
-  return `https://${trimmed}`;
+
+  const hasHttpScheme = /^https?:\/\//i.test(trimmed);
+  const hasUnsupportedScheme =
+    /^[a-z][a-z0-9+.-]*:/i.test(trimmed) &&
+    !hasHttpScheme &&
+    !/^(?:localhost|(?:\d{1,3}\.){3}\d{1,3}|[\w.-]+):\d+(?:\/|$)/i.test(trimmed);
+  if (hasUnsupportedScheme) return "";
+
+  try {
+    const parsed = new URL(hasHttpScheme ? trimmed : `https://${trimmed}`);
+    if (
+      (parsed.protocol !== "http:" && parsed.protocol !== "https:") ||
+      !parsed.hostname ||
+      parsed.username ||
+      parsed.password
+    ) {
+      return "";
+    }
+    return parsed.href;
+  } catch {
+    return "";
+  }
 }
 
 /** Domain of a URL, used for favicon fallbacks and labels. */
