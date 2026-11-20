@@ -8,7 +8,7 @@ import {
   updateBookmark,
   type BookmarkNode,
 } from "../lib/chrome";
-import { domainOf } from "../lib/utils";
+import { domainOf, toAbsoluteUrl } from "../lib/utils";
 import { useApp } from "../state/app-state";
 import { useNavigation } from "../state/navigation";
 import {
@@ -157,10 +157,15 @@ export function BookmarksApp() {
           setFormError("Enter the address to bookmark.");
           return;
         }
+        const safeUrl = toAbsoluteUrl(url);
+        if (!safeUrl) {
+          setFormError("Use a valid http or https address.");
+          return;
+        }
         await createBookmark({
           parentId: dialog.parentId || defaultParent,
           title: title.trim(),
-          url: url.trim(),
+          url: safeUrl,
         });
       } else {
         await updateBookmark(dialog.node.id, {
