@@ -99,7 +99,7 @@ describe("URL resolution", () => {
     expect(resolveWallpaperUrl(external, "/")).toBe(external.src);
   });
 
-  it("joins local paths against the base URL", () => {
+  it("rejects insecure or executable external image schemes", () => {\n    expect(resolveWallpaperUrl({ id: "http", title: "http", src: "http://example.com/a.jpg", source: "external" }, "/")).toBe("");\n    expect(resolveWallpaperUrl({ id: "script", title: "script", src: "javascript:alert(1)", source: "external" }, "/")).toBe("");\n    expect(resolveWallpaperUrl({ id: "protocol", title: "protocol", src: "//example.com/a.jpg", source: "external" }, "/")).toBe("");\n  });\n\n  it("joins local paths against the base URL", () => {
     expect(resolveWallpaperUrl(entry("a"), "/")).toBe("/wallpapers/a.jpg");
     expect(resolveWallpaperUrl(entry("a"), "./")).toBe("./wallpapers/a.jpg");
     expect(resolveWallpaperUrl(entry("a"), "/app")).toBe("/app/wallpapers/a.jpg");
